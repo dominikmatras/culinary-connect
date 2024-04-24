@@ -1,7 +1,7 @@
 import express from "express";
 import { MealRepository } from "../../infrastructure/repositories/MealRepository";
 import { MealService } from "../../application/services/MealService";
-import { MealController } from "../controllers/mealController";
+import { MealController } from "../controllers/MealController";
 
 const router = express.Router();
 
