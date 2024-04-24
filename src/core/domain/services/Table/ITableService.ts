@@ -1,6 +1,6 @@
-import { Table } from "../../domain/Table/Table";
+import type { Table } from "../../entities/Table/Table";
 
-export interface ITableRepository {
+export interface ITableService {
   findById(id: number): Promise<Table | null>;
   findAll(): Promise<Table[]>;
   create(table: Table): Promise<Table>;

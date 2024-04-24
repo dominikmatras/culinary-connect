@@ -1,6 +1,6 @@
-import { Order } from "../../domain/Order/Order";
+import type { Order } from "../../entities/Order/Order";
 
-export interface IOrderRepository {
+export interface IOrderService {
   findById(id: number): Promise<Order | null>;
   findAll(): Promise<Order[]>;
   create(order: Order): Promise<Order>;
