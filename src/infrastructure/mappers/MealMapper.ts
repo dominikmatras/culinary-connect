@@ -3,7 +3,7 @@ import { MealModel } from "../schemas/MealSchema";
 
 export class MealMapper {
   // Convert from Mongoose model to domain entity (Meal)
-  static toDomain(mealModel: any): Meal {
+  static toDomainEntity(mealModel: any): Meal {
     return new Meal(
       mealModel.id,
       mealModel.name,

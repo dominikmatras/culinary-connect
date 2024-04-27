@@ -9,12 +9,17 @@ export class MealController {
     const { id, name, price, description } = req.body;
     const meal = new Meal(id, name, price, description);
     const createdMeal = await this.mealService.create(meal);
-    res.status(201).json(createdMeal);
+    res.status(201).json({
+      status: 'success',
+      data: {
+        meal: createdMeal,
+      },
+    });
   }
 
   async getAllMeals(req: Request, res: Response) {
     const meals = await this.mealService.findAll();
-    res.json({
+    res.status(200).json({
       status: "success",
       results: meals.length,
       data: {
@@ -30,7 +35,12 @@ export class MealController {
       res.status(404).send("Meal not found");
       return;
     }
-    res.json(meal);
+    res.status(200).json({
+      status: "success",
+      data: {
+        meal
+      }
+    });
   }
 
   async updateMeal(req: Request, res: Response) {
@@ -41,12 +51,20 @@ export class MealController {
       res.status(404).send("Meal not found");
       return;
     }
-    res.json(updatedMeal);
+    res.status(200).json({
+      status: "success",
+      data: {
+        updatedMeal
+      }
+    });
   }
 
   async deleteMeal(req: Request, res: Response) {
     const id = parseInt(req.params.id);
     await this.mealService.delete(id);
-    res.status(204).send();
+    res.status(204).json({
+      status: "success",
+      data: null
+    });
   }
 }

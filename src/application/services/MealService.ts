@@ -6,9 +6,8 @@ export class MealService implements IMealService {
   constructor(private mealRepository: IMealRepository) {}
 
   async create(mealData: Meal): Promise<Meal> {
-    return this.mealRepository.add(
-      new Meal(mealData.id, mealData.name, mealData.price, mealData.description)
-    );
+    const { id, name, price, description } = mealData;
+    return this.mealRepository.add(new Meal(id, name, price, description));
   }
 
   async findAll(): Promise<Meal[]> {

@@ -9,6 +9,15 @@ const mealRepository = new MealRepository();
 const mealService = new MealService(mealRepository);
 const mealController = new MealController(mealService);
 
-router.route("/").get(mealController.getAllMeals.bind(mealController));
+router
+  .route("/")
+  .get(mealController.getAllMeals.bind(mealController))
+  .post(mealController.createMeal.bind(mealController));
+
+router
+  .route("/:id")
+  .get(mealController.getMealById.bind(mealController))
+  .patch(mealController.updateMeal.bind(mealController))
+  .delete(mealController.deleteMeal.bind(mealController));
 
 export { router };
