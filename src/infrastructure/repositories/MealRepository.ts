@@ -31,7 +31,8 @@ export class MealRepository implements IMealRepository {
       : null;
   }
 
-  async delete(id: number): Promise<void> {
-    await MealModel.findOneAndDelete({ id: id });
+  async delete(id: number): Promise<Meal | null> {
+   const meal = await MealModel.findOneAndDelete({ id: id });
+   return meal ? MealMapper.toDomainEntity(meal) : null;
   }
 }

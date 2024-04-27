@@ -1,4 +1,4 @@
-import type { Order } from "../../entities/Order/Order";
+import type { Order } from "../entities/Order/Order";
 
 export interface IOrderService {
   findById(id: number): Promise<Order | null>;

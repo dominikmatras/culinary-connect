@@ -1,5 +1,5 @@
 import { Meal } from "../../core/domain/entities/Meal/Meal";
-import type { IMealService } from "../../core/domain/services/Meal/IMealService";
+import type { IMealService } from "../../core/domain/services/IMealService";
 import type { IMealRepository } from "../interfaces/IMealRepository";
 
 export class MealService implements IMealService {
@@ -22,7 +22,7 @@ export class MealService implements IMealService {
     return this.mealRepository.update(id, mealData);
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: number): Promise<Meal | null> {
     return this.mealRepository.delete(id);
   }
 }

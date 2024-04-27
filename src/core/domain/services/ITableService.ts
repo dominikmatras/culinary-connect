@@ -1,4 +1,4 @@
-import type { Table } from "../../entities/Table/Table";
+import type { Table } from "../entities/Table/Table";
 
 export interface ITableService {
   findById(id: number): Promise<Table | null>;

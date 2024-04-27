@@ -5,5 +5,5 @@ export interface IMealRepository {
   findAll(): Promise<Meal[]>;
   findById(id: number): Promise<Meal | null>;
   update(id: number, meal: Partial<Meal>): Promise<Meal | null>;
-  delete(id: number): Promise<void>;
+  delete(id: number): Promise<Meal | null>;
 }

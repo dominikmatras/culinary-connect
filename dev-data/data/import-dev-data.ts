@@ -16,7 +16,6 @@ mongoose.connect(DB).then(() => {
 });
 
 const meals = JSON.parse(fs.readFileSync('meals.json', 'utf-8'));
-console.log(meals);
 
 const importDataToDB = async () => {
   try {
