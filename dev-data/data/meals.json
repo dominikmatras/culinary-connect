@@ -1,121 +1,121 @@
 [
   {
     "id": 1,
-    "mealName": "Grilled Salmon",
+    "name": "Grilled Salmon",
     "price": 15.99,
     "description": "A delicious grilled salmon served with a side of vegetables."
   },
   {
     "id": 2,
-    "mealName": "Chicken Caesar Salad",
+    "name": "Chicken Caesar Salad",
     "price": 12.5,
     "description": "Classic Caesar salad topped with grilled chicken breast."
   },
   {
     "id": 3,
-    "mealName": "Beef Burger",
+    "name": "Beef Burger",
     "price": 11.0,
     "description": "Juicy beef burger with lettuce, tomato, and secret sauce."
   },
   {
     "id": 4,
-    "mealName": "Vegetarian Pizza",
+    "name": "Vegetarian Pizza",
     "price": 9.99,
     "description": "A delicious pizza topped with a variety of fresh vegetables."
   },
   {
     "id": 5,
-    "mealName": "Pasta Carbonara",
+    "name": "Pasta Carbonara",
     "price": 13.5,
     "description": "Creamy pasta with eggs, cheese, bacon, and a touch of parsley."
   },
   {
     "id": 6,
-    "mealName": "Tom Yum Soup",
+    "name": "Tom Yum Soup",
     "price": 8.5,
     "description": "Spicy Thai soup with shrimp, mushrooms, and lemongrass."
   },
   {
     "id": 7,
-    "mealName": "Sushi Platter",
+    "name": "Sushi Platter",
     "price": 22.0,
     "description": "Assortment of fresh sushi rolls, including salmon, tuna, and avocado."
   },
   {
     "id": 8,
-    "mealName": "Lamb Chops",
+    "name": "Lamb Chops",
     "price": 19.99,
     "description": "Tender lamb chops grilled to perfection with herbs and spices."
   },
   {
     "id": 9,
-    "mealName": "Falafel Wrap",
+    "name": "Falafel Wrap",
     "price": 6.99,
     "description": "Middle Eastern falafel wrap with tahini sauce and vegetables."
   },
   {
     "id": 10,
-    "mealName": "Steak Frites",
+    "name": "Steak Frites",
     "price": 25.0,
     "description": "Classic steak frites with garlic butter and a side of fries."
   },
   {
     "id": 11,
-    "mealName": "Mushroom Risotto",
+    "name": "Mushroom Risotto",
     "price": 14.0,
     "description": "Creamy risotto with wild mushrooms and a sprinkle of parmesan cheese."
   },
   {
     "id": 12,
-    "mealName": "Pad Thai",
+    "name": "Pad Thai",
     "price": 12.0,
     "description": "Traditional Thai noodles stir-fried with eggs, tofu, and tamarind sauce."
   },
   {
     "id": 13,
-    "mealName": "Fish and Chips",
+    "name": "Fish and Chips",
     "price": 10.0,
     "description": "Crispy battered fish served with chips and tartar sauce."
   },
   {
     "id": 14,
-    "mealName": "Quinoa Salad",
+    "name": "Quinoa Salad",
     "price": 9.0,
     "description": "Healthy quinoa salad with cucumbers, tomatoes, and feta cheese."
   },
   {
     "id": 15,
-    "mealName": "Pulled Pork Sandwich",
+    "name": "Pulled Pork Sandwich",
     "price": 11.5,
     "description": "Slow-cooked pulled pork with BBQ sauce and coleslaw on a bun."
   },
   {
     "id": 16,
-    "mealName": "Tiramisu",
+    "name": "Tiramisu",
     "price": 7.0,
     "description": "Classic Italian dessert with mascarpone cheese and dusted with cocoa."
   },
   {
     "id": 17,
-    "mealName": "French Onion Soup",
+    "name": "French Onion Soup",
     "price": 8.0,
     "description": "Rich onion soup topped with cheese and a slice of toasted bread."
   },
   {
     "id": 18,
-    "mealName": "Chicken Tikka Masala",
+    "name": "Chicken Tikka Masala",
     "price": 13.0,
     "description": "Indian spiced curry with grilled chicken pieces and creamy sauce."
   },
   {
     "id": 19,
-    "mealName": "Chocolate Cake",
+    "name": "Chocolate Cake",
     "price": 6.5,
     "description": "Rich and moist chocolate cake with a layer of chocolate frosting."
   },
   {
     "id": 20,
-    "mealName": "Raspberry Cheesecake",
+    "name": "Raspberry Cheesecake",
     "price": 8.0,
     "description": "Creamy cheesecake with a raspberry swirl and a graham cracker crust."
   }

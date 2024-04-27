@@ -1,13 +1,5 @@
-import dotenv from "dotenv";
 import { app } from "./app";
 import mongoose from "mongoose";
-import morgan from "morgan";
-
-dotenv.config({ path: "./config.env" });
-
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
-}
 
 const DB =
   process.env.DATABASE?.replace(
