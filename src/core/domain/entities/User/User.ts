@@ -1,10 +1,10 @@
+import type { UserRole } from "./UserRole";
 export class User {
 	constructor(
-		public readonly id: number,
-		public readonly firstName: string,
-		public readonly lastName: string,
+		public readonly name: string,
 		public readonly email: string,
-		public readonly role: string,
-		public readonly password: string
+		public readonly role: UserRole,
+		public readonly password: string,
+		public readonly passwordConfirm: string,
 	) {}
 }

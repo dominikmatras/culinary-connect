@@ -1,5 +1,6 @@
-import type { User } from "../entities/User/User";
-export interface IUserService {
+import type { User } from "../../core/domain/entities/User/User";
+
+export interface IUserRepository {
   signup(userData: User): Promise<User | null>;
   findById(id: number): Promise<User | null>;
   findAll(): Promise<User[]>;

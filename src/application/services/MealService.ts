@@ -1,13 +1,11 @@
 import { Meal } from "../../core/domain/entities/Meal/Meal";
 import type { IMealService } from "../../core/domain/services/IMealService";
 import type { IMealRepository } from "../interfaces/IMealRepository";
-
 export class MealService implements IMealService {
   constructor(private mealRepository: IMealRepository) {}
 
   async create(mealData: Meal): Promise<Meal> {
-    const { id, name, price, description } = mealData;
-    return this.mealRepository.add(new Meal(id, name, price, description));
+    return this.mealRepository.add(mealData);
   }
 
   async findAll(): Promise<Meal[]> {

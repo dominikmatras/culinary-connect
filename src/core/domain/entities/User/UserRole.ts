@@ -1,5 +1,1 @@
-export enum USER_ROLE {
-	COOKER = 'COOKER',
-	WAITER = 'WAITER',
-	MANAGER = 'MANAGER',
-}
+export type UserRole = "cooker" | "waiter" | "manager";
