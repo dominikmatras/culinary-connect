@@ -5,6 +5,7 @@ export class UserMapper {
 
   static toDomainEntity(userModel: any): User {
     return new User(
+      userModel.id,
       userModel.name,
       userModel.email,
       userModel.role,

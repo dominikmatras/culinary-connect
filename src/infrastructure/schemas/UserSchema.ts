@@ -3,6 +3,11 @@ import validator from 'validator';
 import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema({
+  id: {
+    type: Number,
+    required: [true, 'A user must have an id'],
+    unique: true,
+  },
   name: {
     type: String,
     required: [true, 'A user must have a name'],
@@ -44,6 +49,10 @@ userSchema.pre('save', async function(this: any, next) {
   this.passwordConfirm = undefined;
 
   next();
-})
+});
+
+userSchema.methods.correctPassword = async function(inputPassword: string, userPassword: string) {
+  return await bcrypt.compare(inputPassword, userPassword)
+}
 
 export const UserModel = mongoose.model("User", userSchema);

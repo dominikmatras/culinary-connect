@@ -10,5 +10,7 @@ const userService = new UserService(userRepository);
 const userController = new UserController(userService);
 
 router.post("/signup", userController.signup.bind(userController));
+router.post("/login", userController.login.bind(userController));
+router.route('/').get(userController.getAllUsers.bind(userController));
 
 export { router };

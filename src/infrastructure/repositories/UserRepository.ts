@@ -1,19 +1,35 @@
 import type { IUserRepository } from "../../application/interfaces/IUserRepository";
 import type { User } from "../../core/domain/entities/User/User";
 import { UserModel } from "../schemas/UserSchema";
+import { UserMapper } from "../mappers/UserMapper";
 
 export class UserRepository implements IUserRepository {
-  async signup(userData: User): Promise<User | null> {
+  async signup(userData: User): Promise<User> {
     const newUser = await UserModel.create(userData);
-    return newUser ? newUser : null;
+    
+    return UserMapper.toDomainEntity(newUser);
   }
+  
+  async login(userData: {email: string, password: string}): Promise<User | null> {
+    const { email, password } = userData;
+    const user = await UserModel.findOne({ email }).select('+password');
 
+    //@ts-ignore
+    if(!user || !(await user.correctPassword(password, user.password))) {
+      return null
+    }
+    
+    return UserMapper.toDomainEntity(user);
+  }
+  
   async findById(id: number): Promise<User | null> {
     throw new Error("Method not implemented.");
   }
 
   async findAll(): Promise<User[]> {
-    throw new Error("Method not implemented.");
+    const users = await UserModel.find();
+
+    return users.map(UserMapper.toDomainEntity);
   }
 
   async create(user: User): Promise<User> {
@@ -27,5 +43,4 @@ export class UserRepository implements IUserRepository {
   async delete(id: number): Promise<void> {
     throw new Error("Method not implemented.");
   }
-  
 }
