@@ -2,8 +2,9 @@ import type { Request, Response, NextFunction } from "express";
 import { MealService } from "../../application/services/MealService";
 import { Meal } from "../../core/domain/entities/Meal/Meal";
 import { AppError } from "../../../utils/AppError";
+import { MealRepository } from "../../infrastructure/repositories/MealRepository";
 
-export class MealController {
+class MealController {
   constructor(private mealService: MealService) {}
 
   async createMeal(req: Request, res: Response, next: NextFunction) {
@@ -96,3 +97,7 @@ export class MealController {
     }
   }
 }
+
+const mealRepository = new MealRepository();
+const mealService = new MealService(mealRepository);
+export const mealController = new MealController(mealService);

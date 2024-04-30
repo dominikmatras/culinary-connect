@@ -1,6 +1,16 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 import validator from 'validator';
 import bcrypt from 'bcryptjs';
+
+interface UserDocument extends Document {
+  id: number;
+  name: string;
+  email: string;
+  role: "cooker" | "waiter" | "manager";
+  password: string;
+  passwordConfirm: string;
+  correctPassword: (inputPassword: string, userPassword: string) => Promise<boolean>;
+}
 
 const userSchema = new mongoose.Schema({
   id: {
@@ -55,4 +65,4 @@ userSchema.methods.correctPassword = async function(inputPassword: string, userP
   return await bcrypt.compare(inputPassword, userPassword)
 }
 
-export const UserModel = mongoose.model("User", userSchema);
+export const UserModel = mongoose.model<UserDocument>("User", userSchema);

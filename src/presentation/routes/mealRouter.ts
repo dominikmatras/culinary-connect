@@ -1,17 +1,15 @@
 import express from "express";
-import { MealRepository } from "../../infrastructure/repositories/MealRepository";
-import { MealService } from "../../application/services/MealService";
-import { MealController } from "../controllers/MealController";
+import { mealController } from "../controllers/MealController";
+import { userController } from "../controllers/UserController";
 
 const router = express.Router();
 
-const mealRepository = new MealRepository();
-const mealService = new MealService(mealRepository);
-const mealController = new MealController(mealService);
-
 router
   .route("/")
-  .get(mealController.getAllMeals.bind(mealController))
+  .get(
+    userController.protect.bind(userController),
+    mealController.getAllMeals.bind(mealController)
+  )
   .post(mealController.createMeal.bind(mealController));
 
 router

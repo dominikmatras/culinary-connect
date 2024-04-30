@@ -14,16 +14,16 @@ export class UserRepository implements IUserRepository {
     const { email, password } = userData;
     const user = await UserModel.findOne({ email }).select('+password');
 
-    //@ts-ignore
     if(!user || !(await user.correctPassword(password, user.password))) {
       return null
     }
     
     return UserMapper.toDomainEntity(user);
   }
-  
+
   async findById(id: number): Promise<User | null> {
-    throw new Error("Method not implemented.");
+    const user = await UserModel.findOne({id});
+    return user ? UserMapper.toDomainEntity(user) : null;
   }
 
   async findAll(): Promise<User[]> {

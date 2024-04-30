@@ -3,8 +3,10 @@ import { UserService } from "../../application/services/UserService";
 import { User } from "../../core/domain/entities/User/User";
 import { AppError } from "../../../utils/AppError";
 import { signToken } from "../../../utils/signToken";
+import { UserRepository } from "../../infrastructure/repositories/UserRepository";
+import { verifyToken } from "../../../utils/verifyToken";
 
-export class UserController {
+class UserController {
   constructor(private userService: UserService) {}
 
   async signup(req: Request, res: Response, next: NextFunction) {
@@ -31,22 +33,51 @@ export class UserController {
     try {
       const { email, password } = req.body;
 
-      if(!email || !password) {
-        return next(new AppError("You must provide valid email and password!", 400))
-      };
+      if (!email || !password) {
+        return next(new AppError("You must provide valid email and password!", 400));
+      }
 
-      const user = await this.userService.login({email, password});
-      
-      if(!user) {
-        return next(new AppError("Incorrect user data!", 401))
+      const user = await this.userService.login({ email, password });
+
+      if (!user) {
+        return next(new AppError("Incorrect user data!", 401));
       }
 
       const token = signToken(user.id);
 
       res.status(200).json({
         status: "success",
-        token
+        token,
       });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async protect(req: Request & {user?: User}, res: Response, next: NextFunction) {
+    try {
+      let token;
+      if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
+        token = req.headers.authorization.split(" ")[1];
+      }
+
+      if (!token) {
+        return next(
+          new AppError("You are not loged in! Please login to get access.", 401)
+        );
+      }
+
+      const verifiedData = await verifyToken(token);
+
+      const user = await this.userService.findById(verifiedData.id);
+
+      if (!user)
+        return next(
+          new AppError("The user belonging to this token does no longer exist.", 401)
+        );
+
+      req.user = user;
+      next();
     } catch (error) {
       next(error);
     }
@@ -101,3 +132,7 @@ export class UserController {
     }
   }
 }
+
+const userRepository = new UserRepository();
+const userService = new UserService(userRepository);
+export const userController = new UserController(userService);
