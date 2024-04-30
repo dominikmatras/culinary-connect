@@ -54,7 +54,7 @@ class UserController {
     }
   }
 
-  async protect(req: Request & {user?: User}, res: Response, next: NextFunction) {
+  async protect(req: Request & { user?: User }, res: Response, next: NextFunction) {
     try {
       let token;
       if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
@@ -81,6 +81,22 @@ class UserController {
     } catch (error) {
       next(error);
     }
+  }
+
+  restrictTo(...userRoles: string[]) {
+    return async (req: Request & { user?: User }, res: Response, next: NextFunction) => {
+      try {
+        const user = req.user;
+        
+        if(user && !userRoles.includes(user?.role)) {
+          return next(new AppError('You do not have permission to perform this action', 403))
+        }
+
+        next();
+      } catch (error) {
+        next(error);
+      }
+    };
   }
 
   async getAllUsers(req: Request, res: Response, next: NextFunction) {
