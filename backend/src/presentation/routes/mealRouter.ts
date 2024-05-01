@@ -7,7 +7,6 @@ const router = express.Router();
 router
   .route("/")
   .get(
-    userController.protect.bind(userController),
     mealController.getAllMeals.bind(mealController)
   )
   .post(mealController.createMeal.bind(mealController));
