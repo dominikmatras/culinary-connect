@@ -44,6 +44,15 @@ class UserController {
       }
 
       const token = signToken(user.id);
+      const expiresIn = Number(process.env.JWT_COOKIE_EXPIRES_IN) || 90;
+
+      const cookieOptions = {
+        expires: new Date(Date.now() + expiresIn * 24 * 60 * 60 * 1000),
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "development" ? false : true,
+      };
+
+      res.cookie("jwt", token, cookieOptions);
 
       res.status(200).json({
         status: "success",
@@ -59,6 +68,8 @@ class UserController {
       let token;
       if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
         token = req.headers.authorization.split(" ")[1];
+      } else if(req.cookies.jwt) {
+        token = req.cookies.jwt
       }
 
       if (!token) {
@@ -87,9 +98,11 @@ class UserController {
     return async (req: Request & { user?: User }, res: Response, next: NextFunction) => {
       try {
         const user = req.user;
-        
-        if(user && !userRoles.includes(user?.role)) {
-          return next(new AppError('You do not have permission to perform this action', 403))
+
+        if (user && !userRoles.includes(user?.role)) {
+          return next(
+            new AppError("You do not have permission to perform this action", 403)
+          );
         }
 
         next();

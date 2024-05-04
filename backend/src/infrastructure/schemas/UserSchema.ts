@@ -12,6 +12,8 @@ interface UserDocument extends Document {
   correctPassword: (inputPassword: string, userPassword: string) => Promise<boolean>;
 }
 
+
+
 const userSchema = new mongoose.Schema({
   id: {
     type: Number,
@@ -66,3 +68,14 @@ userSchema.methods.correctPassword = async function(inputPassword: string, userP
 }
 
 export const UserModel = mongoose.model<UserDocument>("User", userSchema);
+
+// const user1 = new UserModel({
+//   id: 1,
+//   name: "John",
+//   email: "dawd@awd.com",
+//   role: "cooker",
+//   password: "password",
+//   passwordConfirm: "password",
+// });
+
+// console.log(user1);
