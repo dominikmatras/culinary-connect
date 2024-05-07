@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import MealsList from '../../components/MealsList/MealsList';
 import Navbar from '../../components/Navbar/Navbar';
-import Searchbar from '../../components/Searchbar/Searchbar';
+import Searchbar from '../../components/ui/Searchbar/Searchbar';
 import './Menu.less';
 
 const Menu = () => {

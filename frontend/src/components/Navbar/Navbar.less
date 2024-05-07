@@ -1,7 +1,11 @@
 .navbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   height: 100vh;
   width: 20rem;
   padding: 0 2rem;
+  padding-bottom: 3rem;
   background-color: var(--color-grey-0);
 
   &__logo {
@@ -43,6 +47,24 @@
         border-radius: var(--border-radius-lg);
       }
     }
+  }
 
+  &__logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background-color: var(--color-grey-0);
+    border: none;
+    font-weight: 500;
+
+    &:focus {
+      outline: none;
+    }
+
+    svg {
+      fill: var(--color-brand-600);
+      width: 24px;
+      height: 24px;
+    }
   }
 }

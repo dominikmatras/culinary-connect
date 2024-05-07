@@ -63,13 +63,30 @@ class UserController {
     }
   }
 
+  async logout(req: Request, res: Response, next: NextFunction) {
+    try {
+      const cookieOptions = {
+        expires: new Date(Date.now() + 10 * 1000),
+        httpOnly: true,
+      };
+
+      res.cookie("jwt", "", cookieOptions);
+
+      res.status(200).json({
+        status: "success",
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async protect(req: Request & { user?: User }, res: Response, next: NextFunction) {
     try {
       let token;
       if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
         token = req.headers.authorization.split(" ")[1];
-      } else if(req.cookies.jwt) {
-        token = req.cookies.jwt
+      } else if (req.cookies.jwt) {
+        token = req.cookies.jwt;
       }
 
       if (!token) {
@@ -165,3 +182,4 @@ class UserController {
 const userRepository = new UserRepository();
 const userService = new UserService(userRepository);
 export const userController = new UserController(userService);
+

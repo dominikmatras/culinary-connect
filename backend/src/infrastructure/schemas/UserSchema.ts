@@ -79,3 +79,4 @@ export const UserModel = mongoose.model<UserDocument>("User", userSchema);
 // });
 
 // console.log(user1);
+

@@ -1,9 +1,19 @@
 .meals-list {
+  height: calc(100% - 84px);
   padding: 2rem;
+  position: relative;
 
   &__list {
+    height: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
     gap: 2rem;
+  }
+
+  &__pagination {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
   }
 }
