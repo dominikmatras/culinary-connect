@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getMeals } from "../../services/api";
+import { PAGE_SIZE } from "../../utils/constants";
+import { useMeals } from "../../hooks/useMeals";
 import MealItem from "../MealItem/MealItem";
 import Pagination from "../ui/Pagination/Pagination";
 import "./MealsList.less";
@@ -9,29 +9,33 @@ type MealsListProps = {
   searchedValue: string;
 };
 
+type Meal = {
+  id: number;
+  name: string;
+  price: number;
+};
+
 const MealsList = ({ searchedValue }: MealsListProps) => {
   const [page, setPage] = useState(1);
-  const { data: meals, isLoading } = useQuery({
-    queryKey: ["meals"],
-    queryFn: getMeals,
-  });
+  const { meals, isLoading } = useMeals();
   if (isLoading || !meals) return null;
 
-  const pagedMeals = meals.slice(page * 6 - 6, 6 * page);
-  const filteredMeals = pagedMeals.filter((meal: any) =>
+  const pagedMeals = meals.slice(page * PAGE_SIZE - PAGE_SIZE, PAGE_SIZE * page);
+
+  const filteredMeals = pagedMeals.filter((meal: Meal) =>
     meal.name.toLowerCase().includes(searchedValue)
   );
 
   return (
     <div className="meals-list">
       <ul className="meals-list__list">
-        {filteredMeals.map((meal: any) => {
+        {filteredMeals.map((meal: Meal) => {
           return <MealItem key={meal.id} name={meal.name} price={meal.price} />;
         })}
       </ul>
       <Pagination
         className="meals-list__pagination"
-        pageSize={6}
+        pageSize={PAGE_SIZE}
         count={meals.length}
         setPage={setPage}
         page={page}

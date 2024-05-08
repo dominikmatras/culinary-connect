@@ -4,10 +4,14 @@ import { IoFastFoodOutline } from "react-icons/io5";
 import { IoSettingsOutline } from "react-icons/io5";
 import "./Navbar.less";
 import { useLogout } from "../../hooks/useLogout";
+import { useUser } from "../../hooks/useUser";
 
 const Navbar = () => {
-
+  const { user, isLoading: isUserLoading } = useUser();
   const { logout, isLoading } = useLogout();
+  console.log(user);
+
+  if (isUserLoading) return <div>Loading...</div>;
 
   return (
     <aside className="navbar">
@@ -30,10 +34,20 @@ const Navbar = () => {
           </ul>
         </nav>
       </div>
-      <button onClick={() => logout()} disabled={isLoading} className="navbar__logout-btn">
-        <MdLogout />
-        <span>Logout</span>
-      </button>
+      <div className="navbar__footer">
+        <div className="navbar__footer__user-info">
+          <span className="navbar__footer__user-info__letter">{user.name.split("")[0]}</span>
+          <span className="navbar__footer__user-info__name">{user.name}</span>
+        </div>
+        <button
+          onClick={() => logout()}
+          disabled={isLoading}
+          className="navbar__footer__logout-btn"
+        >
+          <MdLogout />
+          <span>Logout</span>
+        </button>
+      </div>
     </aside>
   );
 };

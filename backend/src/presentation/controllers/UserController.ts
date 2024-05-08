@@ -53,10 +53,12 @@ class UserController {
       };
 
       res.cookie("jwt", token, cookieOptions);
-
+      //@ts-ignore
+      user.password = undefined
       res.status(200).json({
         status: "success",
         token,
+        data: user,
       });
     } catch (error) {
       next(error);
@@ -111,6 +113,20 @@ class UserController {
     }
   }
 
+  async getUser(req: Request & { user?: User }, res: Response, next: NextFunction) {
+    try {
+      const user = req.user;
+      
+      res.status(200).json({
+        status: 'success',
+        data: user
+      })
+      next();
+    } catch (error) {
+      next(error);
+    }
+  }
+
   restrictTo(...userRoles: string[]) {
     return async (req: Request & { user?: User }, res: Response, next: NextFunction) => {
       try {
@@ -147,16 +163,16 @@ class UserController {
   async getUserById(req: Request, res: Response, next: NextFunction) {
     try {
       const id = parseInt(req.params.id);
-      const User = await this.userService.findById(id);
+      const user = await this.userService.findById(id);
 
-      if (!User) {
+      if (!user) {
         return next(new AppError("User not found", 404));
       }
 
       res.status(200).json({
         status: "success",
         data: {
-          User,
+          user,
         },
       });
     } catch (error) {

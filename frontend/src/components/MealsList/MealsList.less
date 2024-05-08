@@ -4,6 +4,8 @@
   position: relative;
 
   &__list {
+    max-height: calc(100vh - 145px);
+    overflow: auto;
     height: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));

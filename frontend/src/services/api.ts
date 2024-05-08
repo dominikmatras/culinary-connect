@@ -1,6 +1,8 @@
+import { API_VERSION, HOST } from "../utils/constants";
+
 export const getMeals = async () => {
   try {
-    const res = await fetch("http://127.0.0.1:3000/api/v1/meals", {
+    const res = await fetch(`${HOST}${API_VERSION}/meals`, {
       method: "GET",
       credentials: "include",
     });
@@ -15,7 +17,7 @@ export const getMeals = async () => {
 
 export const login = async (data: { email: string; password: string }) => {
   try {
-    const res = await fetch("http://127.0.0.1:3000/api/v1/users/login", {
+    const res = await fetch(`${HOST}${API_VERSION}/users/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +36,7 @@ export const login = async (data: { email: string; password: string }) => {
 
 export const logout = async () => {
   try {
-    const res = await fetch("http://127.0.0.1:3000/api/v1/users/logout", {
+    const res = await fetch(`${HOST}${API_VERSION}/users/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,6 +45,26 @@ export const logout = async () => {
     });
 
     return res;
+
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error logging out");
+  }
+};
+
+export const getUser = async () => {
+  try {
+    const res = await fetch(`${HOST}${API_VERSION}/users/getUser`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    const { data: user } = await res.json();
+
+    return user;
 
   } catch (error) {
     console.log(error);
