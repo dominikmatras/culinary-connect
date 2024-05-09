@@ -1,0 +1,14 @@
+.meals-list {
+  height: calc(100% - 44px);
+
+  &__list {
+    max-height: calc(100vh - 166px);
+    padding: 2rem;
+    overflow: auto;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+    gap: 2rem;
+  }
+
+}

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getMeals } from "../services/api";
+import { getMeals } from "../services/apiMeals";
 
 export const useMeals = () => {
   const { data: meals, isLoading } = useQuery({
@@ -8,4 +8,4 @@ export const useMeals = () => {
   });
 
   return { meals, isLoading };
-}
+};

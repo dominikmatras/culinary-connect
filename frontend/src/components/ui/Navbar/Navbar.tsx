@@ -3,8 +3,9 @@ import { PiSquaresFour } from "react-icons/pi";
 import { IoFastFoodOutline } from "react-icons/io5";
 import { IoSettingsOutline } from "react-icons/io5";
 import "./Navbar.less";
-import { useLogout } from "../../hooks/useLogout";
-import { useUser } from "../../hooks/useUser";
+import { useLogout } from "../../../hooks/useLogout";
+import { useUser } from "../../../hooks/useUser";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const { user, isLoading: isUserLoading } = useUser();
@@ -19,24 +20,32 @@ const Navbar = () => {
         <div className="navbar__logo">Culinary Connect</div>
         <nav className="navbar__nav">
           <ul className="navbar__nav__items">
-            <li className="navbar__nav__items__item active">
-              <IoFastFoodOutline />
-              <span>Menu</span>
+            <li>
+              <NavLink to="/menu" className="navbar__nav__items__item">
+                <IoFastFoodOutline />
+                <span>Menu</span>
+              </NavLink>
             </li>
-            <li className="navbar__nav__items__item">
-              <PiSquaresFour />
-              <span>Tables</span>
+            <li>
+              <NavLink to="/tables" className="navbar__nav__items__item">
+                <PiSquaresFour />
+                <span>Tables</span>
+              </NavLink>
             </li>
-            <li className="navbar__nav__items__item">
-              <IoSettingsOutline />
-              <span>Settings</span>
+            <li>
+              <NavLink to="/settings" className="navbar__nav__items__item">
+                <IoSettingsOutline />
+                <span>Settings</span>
+              </NavLink>
             </li>
           </ul>
         </nav>
       </div>
       <div className="navbar__footer">
         <div className="navbar__footer__user-info">
-          <span className="navbar__footer__user-info__letter">{user.name.split("")[0]}</span>
+          <span className="navbar__footer__user-info__letter">
+            {user.name.split("")[0]}
+          </span>
           <span className="navbar__footer__user-info__name">{user.name}</span>
         </div>
         <button

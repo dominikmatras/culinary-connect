@@ -1,0 +1,19 @@
+.app-layout {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 22rem 1fr;
+  grid-template-areas: "sidebar main";
+  max-width: 144rem;
+  margin: 0 auto;
+
+  &__main {
+    background-color: var(--color-grey-100);
+    overflow: auto;
+    &__container {
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

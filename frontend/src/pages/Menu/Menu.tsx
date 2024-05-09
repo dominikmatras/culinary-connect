@@ -1,9 +1,7 @@
-
-import { useState } from 'react';
-import MealsList from '../../components/MealsList/MealsList';
-import Navbar from '../../components/Navbar/Navbar';
-import Searchbar from '../../components/ui/Searchbar/Searchbar';
-import './Menu.less';
+import { useState } from "react";
+import MealsList from "../../components/Meals/MealsList/MealsList";
+import Searchbar from "../../components/ui/Searchbar/Searchbar";
+import "./Menu.less";
 
 const Menu = () => {
   const [searchedValue, setSearchValue] = useState("");
@@ -12,24 +10,11 @@ const Menu = () => {
     setSearchValue(value);
   };
   return (
-        <div
-          style={{
-            width: "100%",
-            display: "flex",
-          }}
-        >
-          <Navbar />
-          <div
-            style={{
-              flexGrow: 1,
-              flexShrink: 0,
-            }}
-          >
-            <Searchbar onChange={onChangeSearch} value={searchedValue} />
-            <MealsList searchedValue={searchedValue} />
-          </div>
-        </div>
-  )
-}
+    <>
+      <Searchbar onChange={onChangeSearch} value={searchedValue} />
+      <MealsList searchedValue={searchedValue} />
+    </>
+  );
+};
 
-export default Menu
+export default Menu;

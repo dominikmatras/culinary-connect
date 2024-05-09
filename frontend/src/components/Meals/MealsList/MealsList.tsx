@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { PAGE_SIZE } from "../../utils/constants";
-import { useMeals } from "../../hooks/useMeals";
+import { PAGE_SIZE } from "../../../utils/constants";
+import { useMeals } from "../../../hooks/useMeals";
 import MealItem from "../MealItem/MealItem";
-import Pagination from "../ui/Pagination/Pagination";
+import Pagination from "../../ui/Pagination/Pagination";
 import "./MealsList.less";
 
 type MealsListProps = {
