@@ -27,20 +27,22 @@ const MealsList = ({ searchedValue }: MealsListProps) => {
   );
 
   return (
+    <>
     <div className="meals-list">
       <ul className="meals-list__list">
         {filteredMeals.map((meal: Meal) => {
           return <MealItem key={meal.id} name={meal.name} price={meal.price} />;
         })}
       </ul>
+    </div>
       <Pagination
         className="meals-list__pagination"
         pageSize={PAGE_SIZE}
         count={meals.length}
         setPage={setPage}
         page={page}
-      />
-    </div>
+        />
+        </>
   );
 };
 

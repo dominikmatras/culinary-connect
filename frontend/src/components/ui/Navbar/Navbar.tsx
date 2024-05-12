@@ -1,16 +1,15 @@
+import { NavLink } from "react-router-dom";
 import { MdLogout } from "react-icons/md";
 import { PiSquaresFour } from "react-icons/pi";
 import { IoFastFoodOutline } from "react-icons/io5";
 import { IoSettingsOutline } from "react-icons/io5";
-import "./Navbar.less";
 import { useLogout } from "../../../hooks/useLogout";
 import { useUser } from "../../../hooks/useUser";
-import { NavLink } from "react-router-dom";
+import "./Navbar.less";
 
 const Navbar = () => {
   const { user, isLoading: isUserLoading } = useUser();
   const { logout, isLoading } = useLogout();
-  console.log(user);
 
   if (isUserLoading) return <div>Loading...</div>;
 
