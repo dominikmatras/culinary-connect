@@ -1,26 +1,27 @@
-import { Meal } from "../../core/domain/entities/Meal/Meal";
-import type { IMealService } from "../../core/domain/services/IMealService";
-import type { IMealRepository } from "../interfaces/IMealRepository";
+import { Meal } from '../../core/domain/entities/Meal/Meal'
+import type { IMealService } from '../../core/domain/services/IMealService'
+import type { IMealRepository } from '../interfaces/IMealRepository'
+
 export class MealService implements IMealService {
-  constructor(private mealRepository: IMealRepository) {}
+	constructor(private mealRepository: IMealRepository) {}
 
-  async create(mealData: Meal): Promise<Meal> {
-    return this.mealRepository.add(mealData);
-  }
+	async create(mealData: Meal): Promise<Meal> {
+		return this.mealRepository.add(mealData)
+	}
 
-  async findAll(): Promise<Meal[]> {
-    return this.mealRepository.findAll();
-  }
+	async findAll(): Promise<Meal[]> {
+		return this.mealRepository.findAll()
+	}
 
-  async findById(id: number): Promise<Meal | null> {
-    return this.mealRepository.findById(id);
-  }
+	async findById(id: number): Promise<Meal | null> {
+		return this.mealRepository.findById(id)
+	}
 
-  async update(id: number, mealData: Meal): Promise<Meal | null> {
-    return this.mealRepository.update(id, mealData);
-  }
+	async update(id: number, mealData: Meal): Promise<Meal | null> {
+		return this.mealRepository.update(id, mealData)
+	}
 
-  async delete(id: number): Promise<Meal | null> {
-    return this.mealRepository.delete(id);
-  }
+	async delete(id: number): Promise<Meal | null> {
+		return this.mealRepository.delete(id)
+	}
 }
