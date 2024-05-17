@@ -5,7 +5,7 @@ import { TableModel } from '../schemas/TableSchema'
 
 export class TableRepository implements ITableRepository {
 	async findById(id: number): Promise<Table | null> {
-		const tableModel = await TableModel.findOne({ id: id })
+		const tableModel = await TableModel.findOne({ id })
 		return tableModel ? TableMapper.toDomainEntity(tableModel) : null
 	}
 
@@ -15,13 +15,13 @@ export class TableRepository implements ITableRepository {
 	}
 
 	async add(table: Table): Promise<Table> {
-		const mongoTable = await TableMapper.toMongoTable(table)
+		const mongoTable = TableMapper.toMongoTable(table)
 		const createTable = await mongoTable.save()
 		return TableMapper.toDomainEntity(createTable)
 	}
 
 	async update(id: number, tableDataToUpdate: Table): Promise<Table | null> {
-		const tableUpdate = await TableModel.findOneAndUpdate({ id: id }, tableDataToUpdate, {
+		const tableUpdate = await TableModel.findOneAndUpdate({ id }, tableDataToUpdate, {
 			new: true,
 			runValidators: true,
 		})
@@ -29,7 +29,7 @@ export class TableRepository implements ITableRepository {
 	}
 
 	async delete(id: number): Promise<Table | null> {
-		const deleteTable = await TableModel.findOneAndDelete({ id: id })
+		const deleteTable = await TableModel.findOneAndDelete({ id })
 		return deleteTable ? TableMapper.toDomainEntity(deleteTable) : null
 	}
 }

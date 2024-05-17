@@ -16,6 +16,10 @@ router
   .route("/:id")
   .get(mealController.getMealById.bind(mealController))
   .patch(mealController.updateMeal.bind(mealController))
-  .delete(userController.protect.bind(userController), userController.restrictTo("admin", "manager").bind(userController), mealController.deleteMeal.bind(mealController));
+  .delete(
+    userController.protect.bind(userController),
+    userController.restrictTo("manager").bind(userController),
+    mealController.deleteMeal.bind(mealController)
+  );
 
 export { router };

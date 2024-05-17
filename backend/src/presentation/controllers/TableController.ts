@@ -22,7 +22,7 @@ class TableController {
 		}
 	}
 
-	async getTablesById(req: Request, res: Response, next: NextFunction) {
+	async getTableById(req: Request, res: Response, next: NextFunction) {
 		try {
 			const id = parseInt(req.params.id)
 			const table = await this.tableService.findById(id)
