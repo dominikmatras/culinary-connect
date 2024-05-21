@@ -10,7 +10,7 @@ router
 		userController.protect.bind(userController),
 		tableController.getAllTables.bind(tableController)
 	)
-	.post(tableController.createTable.bind(userController))
+	.post(tableController.createTable.bind(tableController))
 
 router
 	.route('/:id')
