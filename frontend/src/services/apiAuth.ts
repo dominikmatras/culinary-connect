@@ -46,7 +46,6 @@ export const getUser = async () => {
 		})
 
 		const { data: user } = await res.json()
-
 		return user
 	} catch (error) {
 		console.log(error)

@@ -9,8 +9,8 @@ class MealController {
 
 	async createMeal(req: Request, res: Response, next: NextFunction) {
 		try {
-			const { id, name, price, description } = req.body
-			const meal = new Meal(id, name, price, description)
+			const { id, name, price, description, photoPath } = req.body
+			const meal = new Meal(id, name, price, description, photoPath)
 			const createdMeal = await this.mealService.create(meal)
 			res.status(201).json({
 				status: 'success',
