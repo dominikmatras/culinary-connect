@@ -1,39 +1,31 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import "./OrderBar.less";
+import { useOrderContext } from "../../context/OrderContext";
 import OrderItem from "../OrderItem/OrderItem";
+import "./OrderBar.less";
+
 
 const OrderBar = () => {
-  const [showBar, setShowBar] = useState(false);
   const [container, setContainer] = useState<Element | null>(null);
+  const { showOrderBar, setShowOrderBar } = useOrderContext();
 
   useEffect(() => {
     setContainer(document.getElementById('order-bar'));
   }, []);
 
-  const toggleShowBar = () => {
-    setShowBar((prevState) => !prevState);
+  const closeOrderBar = () => {
+    setShowOrderBar(false);
   };
 
   return (
     <>
-      <button onClick={toggleShowBar}>Order</button>
-      {showBar && container && createPortal((
+      {showOrderBar && container && createPortal((
         <aside  className="order-bar">
           <div className="order-bar__header">
             <h3 className="order-bar__header__title">Table 4</h3>
           </div>
           <div className="order-bar__content">
             <ul className="order-bar__content__list">
-              <OrderItem/>
-              <OrderItem/>
-              <OrderItem/>
-              <OrderItem/>
-              <OrderItem/>
-              <OrderItem/>
-              <OrderItem/>
-              <OrderItem/>
-              <OrderItem/>
             </ul>
           </div>
           <div className="order-bar__footer">
@@ -53,7 +45,7 @@ const OrderBar = () => {
           </div>
           <div className="order-bar__buttons">
             <button className="order-bar__buttons__button orange">Place Order</button>
-            <button className="order-bar__buttons__button">Cancel</button>
+            <button className="order-bar__buttons__button" onClick={closeOrderBar}>Cancel</button>
           </div>
         </aside>
       ), container)}

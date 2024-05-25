@@ -14,7 +14,7 @@ const tableSchema = new mongoose.Schema({
 	},
 	status: {
 		type: String,
-		enum: ['avaliable', 'occupied'],
+		enum: ['available', 'occupied'],
 		require: true,
 	},
 })

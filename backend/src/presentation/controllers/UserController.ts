@@ -1,194 +1,164 @@
-import type { Request, Response, NextFunction } from 'express'
-import { UserService } from '../../application/services/UserService'
-import { User } from '../../core/domain/entities/User/User'
-import { AppError } from '../../../utils/AppError'
-import { signToken } from '../../../utils/signToken'
-import { UserRepository } from '../../infrastructure/repositories/UserRepository'
-import { verifyToken } from '../../../utils/verifyToken'
+import type { Request, Response, NextFunction } from "express";
+import { UserService } from "../../application/services/UserService";
+import { User } from "../../core/domain/entities/User/User";
+import { AppError } from "../../../utils/AppError";
+import { signToken } from "../../../utils/signToken";
+import { UserRepository } from "../../infrastructure/repositories/UserRepository";
+import { verifyToken } from "../../../utils/verifyToken";
+import { deleteOne, getAll, getOne, updateOne } from "./handlerFactory";
 
 class UserController {
-	constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {
+    this.getAllUsers = getAll(this.userService);
+    this.getUserById = getOne(this.userService);
+    this.updateUser = updateOne(this.userService);
+    this.deleteUser = deleteOne(this.userService);
+  }
 
-	async signup(req: Request, res: Response, next: NextFunction) {
-		try {
-			const { id, name, email, password, passwordConfirm } = req.body
-			const user = new User(id, name, email, 'waiter', password, passwordConfirm)
-			const newUser = await this.userService.signup(user)
+  getAllUsers;
+  getUserById;
+  updateUser;
+  deleteUser;
 
-			const token = signToken(newUser.id)
+  async signup(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id, name, email, password, passwordConfirm } = req.body;
+      const user = new User(id, name, email, "waiter", password, passwordConfirm);
+      const newUser = await this.userService.signup(user);
 
-			res.status(201).json({
-				status: 'success',
-				token,
-				data: {
-					user: newUser,
-				},
-			})
-		} catch (error) {
-			next(error)
-		}
-	}
+      const token = signToken(newUser.id);
 
-	async login(req: Request, res: Response, next: NextFunction) {
-		try {
-			const { email, password } = req.body
+      res.status(201).json({
+        status: "success",
+        token,
+        data: {
+          user: newUser,
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 
-			if (!email || !password) {
-				return next(new AppError('You must provide valid email and password!', 400))
-			}
+  async login(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { email, password } = req.body;
 
-			const user = await this.userService.login({ email, password })
+      if (!email || !password) {
+        return next(new AppError("You must provide valid email and password!", 400));
+      }
 
-			if (!user) {
-				return next(new AppError('Incorrect user data!', 401))
-			}
+      const user = await this.userService.login({ email, password });
 
-			const token = signToken(user.id)
-			const expiresIn = Number(process.env.JWT_COOKIE_EXPIRES_IN) || 90
+      if (!user) {
+        return next(new AppError("Incorrect user data!", 401));
+      }
 
-			const cookieOptions = {
-				expires: new Date(Date.now() + expiresIn * 24 * 60 * 60 * 1000),
-				httpOnly: true,
-				secure: process.env.NODE_ENV === 'development' ? false : true,
-			}
+      const token = signToken(user.id);
+      const expiresIn = Number(process.env.JWT_COOKIE_EXPIRES_IN) || 90;
 
-			res.cookie('jwt', token, cookieOptions)
-			//@ts-ignore
-			user.password = undefined
-			res.status(200).json({
-				status: 'success',
-				token,
-				data: user,
-			})
-		} catch (error) {
-			next(error)
-		}
-	}
+      const cookieOptions = {
+        expires: new Date(Date.now() + expiresIn * 24 * 60 * 60 * 1000),
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "development" ? false : true,
+      };
 
-	async logout(req: Request, res: Response, next: NextFunction) {
-		try {
-			const cookieOptions = {
-				expires: new Date(Date.now() + 10 * 1000),
-				httpOnly: true,
-			}
+      res.cookie("jwt", token, cookieOptions);
+      //@ts-ignore
+      user.password = undefined;
+      res.status(200).json({
+        status: "success",
+        token,
+        data: user,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 
-			res.cookie('jwt', '', cookieOptions)
+  async logout(req: Request, res: Response, next: NextFunction) {
+    try {
+      const cookieOptions = {
+        expires: new Date(Date.now() + 10 * 1000),
+        httpOnly: true,
+      };
 
-			res.status(200).json({
-				status: 'success',
-			})
-		} catch (error) {
-			next(error)
-		}
-	}
+      res.cookie("jwt", "", cookieOptions);
 
-	async protect(req: Request & { user?: User }, res: Response, next: NextFunction) {
-		try {
-			let token
-			if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-				token = req.headers.authorization.split(' ')[1]
-			} else if (req.cookies.jwt) {
-				token = req.cookies.jwt
-			}
+      res.status(200).json({
+        status: "success",
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 
-			if (!token) {
-				return next(new AppError('You are not loged in! Please login to get access.', 401))
-			}
+  async protect(req: Request & { user?: User }, res: Response, next: NextFunction) {
+    try {
+      let token;
+      if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
+        token = req.headers.authorization.split(" ")[1];
+      } else if (req.cookies.jwt) {
+        token = req.cookies.jwt;
+      }
 
-			const verifiedData = await verifyToken(token)
+      if (!token) {
+        return next(
+          new AppError("You are not loged in! Please login to get access.", 401)
+        );
+      }
 
-			const user = await this.userService.findById(verifiedData.id)
+      const verifiedData = await verifyToken(token);
 
-			if (!user)
-				return next(new AppError('The user belonging to this token does no longer exist.', 401))
+      const user = await this.userService.findById(verifiedData.id);
 
-			req.user = user
-			next()
-		} catch (error) {
-			next(error)
-		}
-	}
+      if (!user)
+        return next(
+          new AppError("The user belonging to this token does no longer exist.", 401)
+        );
 
-	async getUser(req: Request & { user?: User }, res: Response, next: NextFunction) {
-		try {
-			const user = req.user
-
-			res.status(200).json({
-				status: 'success',
-				data: user,
-			})
-			next()
-		} catch (error) {
-			next(error)
-		}
-	}
+      req.user = user;
+      next();
+    } catch (error) {
+      next(error);
+    }
+  }
 
 	restrictTo(...userRoles: string[]) {
-		return async (req: Request & { user?: User }, res: Response, next: NextFunction) => {
-			try {
-				const user = req.user
+    return async (req: Request & { user?: User }, res: Response, next: NextFunction) => {
+      try {
+        const user = req.user;
 
-				if (user && !userRoles.includes(user?.role)) {
-					return next(new AppError('You do not have permission to perform this action', 403))
-				}
+        if (user && !userRoles.includes(user?.role)) {
+          return next(
+            new AppError("You do not have permission to perform this action", 403)
+          );
+        }
 
-				next()
-			} catch (error) {
-				next(error)
-			}
-		}
-	}
+        next();
+      } catch (error) {
+        next(error);
+      }
+    };
+  }
 
-	async getAllUsers(req: Request, res: Response, next: NextFunction) {
-		try {
-			const users = await this.userService.findAll()
-			res.status(200).json({
-				status: 'success',
-				results: users.length,
-				data: {
-					users,
-				},
-			})
-		} catch (error) {
-			next(error)
-		}
-	}
+  async getUser(req: Request & { user?: User }, res: Response, next: NextFunction) {
+    try {
+      const user = req.user;
 
-	async getUserById(req: Request, res: Response, next: NextFunction) {
-		try {
-			const id = parseInt(req.params.id)
-			const user = await this.userService.findById(id)
+      res.status(200).json({
+        status: "success",
+        data: user,
+      });
+      next();
+    } catch (error) {
+      next(error);
+    }
+  }
 
-			if (!user) {
-				return next(new AppError('User not found', 404))
-			}
 
-			res.status(200).json({
-				status: 'success',
-				data: {
-					user,
-				},
-			})
-		} catch (error) {
-			next(error)
-		}
-	}
-
-	async updateUser(req: Request, res: Response, next: NextFunction) {
-		try {
-		} catch (error) {
-			next(error)
-		}
-	}
-
-	async deleteUser(req: Request, res: Response, next: NextFunction) {
-		try {
-		} catch (error) {
-			next(error)
-		}
-	}
 }
 
-const userRepository = new UserRepository()
-const userService = new UserService(userRepository)
-export const userController = new UserController(userService)
+const userRepository = new UserRepository();
+const userService = new UserService(userRepository);
+export const userController = new UserController(userService);

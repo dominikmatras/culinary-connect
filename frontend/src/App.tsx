@@ -8,6 +8,8 @@ import AppLayout from "./components/ui/AppLayout/AppLayout";
 import ProtectedRoute from "./components/ui/ProtectedRoute/ProtectedRoute";
 import Tables from "./pages/Tables/Tables";
 import Settings from "./pages/Settings/Settings";
+import Orders from "./pages/Orders/Orders";
+import OrderProvider from "./context/OrderContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,31 +25,34 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
         <Toaster />
-        <BrowserRouter>
-          <Routes>
-            <Route
-              element={
-                <ProtectedRoute>
-                  <AppLayout />
-                </ProtectedRoute>
-              }
-            >
-              <Route path="/menu" element={<Menu />} />
-              <Route path="/tables" element={<Tables />} />
-              <Route path="/settings" element={<Settings />} />
-            </Route>
-            <Route index element={<Login />} />
-            <Route path="/login" element={<Login />} />
-            <Route
-              path="*"
-              element={
-                <div>
-                  <p>Page Not Found!</p>
-                </div>
-              }
-            />
-          </Routes>
-        </BrowserRouter>
+        <OrderProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route
+                element={
+                  <ProtectedRoute>
+                    <AppLayout />
+                  </ProtectedRoute>
+                }
+              >
+                <Route path="/menu" element={<Menu />} />
+                <Route path="/tables" element={<Tables />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/kitchen" element={<Orders />} />
+              </Route>
+              <Route index element={<Login />} />
+              <Route path="/login" element={<Login />} />
+              <Route
+                path="*"
+                element={
+                  <div>
+                    <p>Page Not Found!</p>
+                  </div>
+                }
+              />
+            </Routes>
+          </BrowserRouter>
+        </OrderProvider>
       </QueryClientProvider>
     </>
   );
