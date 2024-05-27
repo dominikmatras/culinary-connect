@@ -7,9 +7,13 @@ export const useLogin = () => {
   const navigate = useNavigate();
   const { mutate, isPending: isLoading } = useMutation({
     mutationFn: (data: { email: string; password: string }) => loginAPI(data),
-    onSuccess: () => {
+    onSuccess: (user) => {
+      if (user.role === "cooker") {
+        navigate("/kitchen");
+      } else {
+        navigate("/menu");
+      }
       toast.success("Logged in successfully!");
-      navigate("/menu");
     },
     onError: (err) => {
       toast.error("Failed to login!");

@@ -1,10 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { MdLogout } from "react-icons/md";
-import { PiSquaresFour } from "react-icons/pi";
-import { IoFastFoodOutline } from "react-icons/io5";
-import { IoSettingsOutline } from "react-icons/io5";
 import { useLogout } from "../../../hooks/useLogout";
 import { useUser } from "../../../hooks/useUser";
+import { navItems } from "./navItems";
 import "./Navbar.less";
 
 const Navbar = () => {
@@ -19,24 +17,20 @@ const Navbar = () => {
         <div className="navbar__logo">Culinary Connect</div>
         <nav className="navbar__nav">
           <ul className="navbar__nav__items">
-            <li>
-              <NavLink to="/menu" className="navbar__nav__items__item">
-                <IoFastFoodOutline />
-                <span>Menu</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/tables" className="navbar__nav__items__item">
-                <PiSquaresFour />
-                <span>Tables</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/settings" className="navbar__nav__items__item">
-                <IoSettingsOutline />
-                <span>Settings</span>
-              </NavLink>
-            </li>
+            {navItems.map((item) => {
+              if (item.roles.includes(user.role)) {
+                return (
+                  <NavLink
+                    key={item.title}
+                    to={item.path}
+                    className="navbar__nav__items__item"
+                  >
+                    {item.icon}
+                    <span>{item.title}</span>
+                  </NavLink>
+                );
+              }
+            })}
           </ul>
         </nav>
       </div>

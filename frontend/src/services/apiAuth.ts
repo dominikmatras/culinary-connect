@@ -11,7 +11,9 @@ export const login = async (data: { email: string; password: string }) => {
 			body: JSON.stringify(data),
 		})
 
-		return res
+		const userData = await res.json();
+
+		return userData.data
 	} catch (error) {
 		console.log(error)
 		throw new Error('Error logging in')

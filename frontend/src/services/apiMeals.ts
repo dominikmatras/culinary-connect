@@ -8,7 +8,7 @@ export const getMeals = async () => {
     });
     const { data } = await res.json();
 
-    return data.meals;
+    return data;
   } catch (error) {
     console.log(error);
     throw new Error("Error fetching meals");

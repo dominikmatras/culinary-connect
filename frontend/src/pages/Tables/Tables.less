@@ -1,0 +1,18 @@
+.tables {
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 50px repeat(6, 1fr);
+  gap: 3rem;
+  margin: 2rem 3rem;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  &__title {
+    grid-column: 1 / 4;
+    grid-row: 1 / 2;
+  }
+}
