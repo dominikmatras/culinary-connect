@@ -10,6 +10,7 @@ import Tables from "./pages/Tables/Tables";
 import Settings from "./pages/Settings/Settings";
 import Orders from "./pages/Orders/Orders";
 import OrderProvider from "./context/OrderContext";
+import NotFound from "./pages/NotFound/NotFound";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,14 +43,7 @@ function App() {
               </Route>
               <Route index element={<Login />} />
               <Route path="/login" element={<Login />} />
-              <Route
-                path="*"
-                element={
-                  <div>
-                    <p>Page Not Found!</p>
-                  </div>
-                }
-              />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
         </OrderProvider>

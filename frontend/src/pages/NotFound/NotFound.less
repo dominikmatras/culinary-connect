@@ -1,0 +1,43 @@
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--color-grey-0);
+  text-align: center;
+  padding: 2rem;
+
+
+  &__title {
+    font-size: 9.6rem;
+    color: #343a40;
+  }
+  
+  &__subtitle {
+    font-size: 3.6rem;
+    color: #6c757d;
+  }
+  
+  &__description {
+    color: #6c757d;
+  }
+  
+  &__back-button {
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    color: var(--color-grey-0);
+    background-color: var(--color-brand-500);
+    border: none;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: 0.3s ease;
+  
+    &:hover {
+      background-color: var(--color-brand-600);
+    }
+  }
+
+
+}
+
