@@ -2,6 +2,7 @@ import { useTables } from "../../hooks/useTables";
 import LongTable from "../../components/ui/LongTable/LongTable";
 import ShortTable from "../../components/ui/ShortTable/ShortTable";
 import "./Tables.less";
+import Spinner from "../../components/ui/Spinner/Spinner";
 
 export type Table = {
   id: number;
@@ -12,12 +13,14 @@ export type Table = {
 const Tables = () => {
   const { tables, isLoading } = useTables();
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading || !tables) return <Spinner/>;
+
+  const sortedTables = tables.sort((tableA: Table, tableB: Table) => tableA.id - tableB.id)
 
   return (
     <div className="tables">
       <h1 className="tables__title">Choose table</h1>
-      {tables.map((table: Table) => {
+      {sortedTables.map((table: Table) => {
         if (table.id === 2 || table.id === 7) {
           return (
             <LongTable

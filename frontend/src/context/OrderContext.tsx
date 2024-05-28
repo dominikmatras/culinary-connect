@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
+import { Table } from "../pages/Tables/Tables";
 
 type OrderProviderType = {
   children: React.ReactNode;
@@ -6,16 +7,47 @@ type OrderProviderType = {
 
 type OrderContextType = {
   showOrderBar: boolean;
-  setShowOrderBar: (showOrderBar: boolean) => void;
+  table: Table;
+  startOrder: boolean;
+  mealsToOrder: any[];
+  dispatch: any;
 };
 
 const OrderContext = createContext<OrderContextType | null>(null);
 
+const reducer = (state: any, action: any) => {
+  switch (action.type) {
+    case "SHOW_ORDER_BAR":
+      return { ...state, showOrderBar: action.payload };
+    case "SET_TABLE":
+      return { ...state, table: action.payload };
+    case "START_ORDER":
+      return { ...state, startOrder: action.payload };
+    case "ADD_MEAL_TO_ORDER":
+      return { ...state, mealsToOrder: [...state.mealsToOrder, action.payload] };
+    default:
+      return state;
+  }
+}
+
 const OrderProvider = ({ children }: OrderProviderType) => {
-  const [showOrderBar, setShowOrderBar] = useState(false);
+  const [{ table, showOrderBar, startOrder, mealsToOrder }, dispatch] = useReducer(reducer, {
+    table: {
+      id: 0,
+      tableNumber: 0,
+      status: "",
+    },
+    showOrderBar: false,
+    startOrder: false,
+    mealsToOrder: [],
+  });
+
   const value = {
     showOrderBar,
-    setShowOrderBar,
+    table,
+    startOrder,
+    mealsToOrder,
+    dispatch
   };
   return <OrderContext.Provider value={value}>{children}</OrderContext.Provider>;
 };

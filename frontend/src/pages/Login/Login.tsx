@@ -61,6 +61,12 @@ const Login = () => {
                 disabled={isLoading}
               />
             </div>
+            <div
+             className="login-container__login__inner__form__btn--forgot"
+            >
+              <button
+              >Forgot password?</button>
+            </div>
             <button
               className="login-container__login__inner__form__btn"
               disabled={isLoading}

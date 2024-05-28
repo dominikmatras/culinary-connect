@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import fs from "fs";
 import { MealModel } from "../../src/infrastructure/schemas/MealSchema";
+import { TableModel } from "../../src/infrastructure/schemas/TableSchema";
 
 dotenv.config({ path: "../../config.env" });
 
@@ -16,10 +17,12 @@ mongoose.connect(DB).then(() => {
 });
 
 const meals = JSON.parse(fs.readFileSync('meals.json', 'utf-8'));
+const tables = JSON.parse(fs.readFileSync('tables.json', 'utf-8'));
 
 const importDataToDB = async () => {
   try {
    await MealModel.create(meals);
+   await TableModel.create(tables);
    console.log('Data successfuly loaded!');
   } catch (error) {
     console.log(error);
@@ -30,6 +33,7 @@ const importDataToDB = async () => {
 const deleteDataInDB = async () => {
   try {
    await MealModel.deleteMany();
+   await TableModel.deleteMany();
    console.log('Data successfuly deleted!');
    
   } catch (error) {

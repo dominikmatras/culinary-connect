@@ -4,12 +4,13 @@ import { useMeals } from "../../../hooks/useMeals";
 import MealItem from "../MealItem/MealItem";
 import Pagination from "../../ui/Pagination/Pagination";
 import "./MealsList.less";
+import Spinner from "../../ui/Spinner/Spinner";
 
 type MealsListProps = {
   searchedValue: string;
 };
 
-type Meal = {
+export type Meal = {
   id: number;
   name: string;
   price: number;
@@ -18,7 +19,7 @@ type Meal = {
 const MealsList = ({ searchedValue }: MealsListProps) => {
   const [page, setPage] = useState(1);
   const { meals, isLoading } = useMeals();
-  if (isLoading || !meals) return null;
+  if (isLoading || !meals) return <Spinner/>;
 
   const pagedMeals = meals.slice(page * PAGE_SIZE - PAGE_SIZE, PAGE_SIZE * page);
 
@@ -31,7 +32,7 @@ const MealsList = ({ searchedValue }: MealsListProps) => {
     <div className="meals-list">
       <ul className="meals-list__list">
         {filteredMeals.map((meal: Meal) => {
-          return <MealItem key={meal.id} name={meal.name} price={meal.price} />;
+          return <MealItem key={meal.id} id={meal.id} name={meal.name} price={meal.price} />;
         })}
       </ul>
     </div>

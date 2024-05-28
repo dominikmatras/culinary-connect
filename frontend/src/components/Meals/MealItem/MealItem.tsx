@@ -1,11 +1,14 @@
-import './MealItem.less';
+import { useOrderContext } from "../../../context/OrderContext";
+import { Meal } from "../MealsList/MealsList";
+import "./MealItem.less";
 
-type MealItemProps = {
-  name: string;
-  price: number;
-};
+const MealItem = ({ id, name, price }: Meal) => {
+  const { dispatch } = useOrderContext();
 
-const MealItem = ({ name, price }: MealItemProps) => {
+  const addMealToOrderHandler = () => {
+    dispatch({ type: "ADD_MEAL_TO_ORDER", payload: { id, name, price } });
+  };
+
   return (
     <div className="meal-item">
       <img src="/burger.jpg" alt="burger image" className="meal-item__img" />
@@ -13,7 +16,9 @@ const MealItem = ({ name, price }: MealItemProps) => {
       <p className="meal-item__price">
         <span>${price}</span>
       </p>
-      <button className="meal-item__btn">Add dish</button>
+      <button className="meal-item__btn" onClick={addMealToOrderHandler}>
+        Add dish
+      </button>
     </div>
   );
 };

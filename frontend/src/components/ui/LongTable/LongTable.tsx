@@ -7,14 +7,20 @@ type LongTableProps = {
 };
 
 const LongTable = ({ id, style, status, tableNumber }: LongTableProps & Table) => {
-  const { setShowOrderBar } = useOrderContext();
+  const { dispatch } = useOrderContext();
+
+  const occupyTableHandler = () => {
+    dispatch({ type: "SHOW_ORDER_BAR", payload: true });
+    dispatch({ type: "SET_TABLE", payload: { id, tableNumber, status } });
+  };
+
   return (
     <div
       style={style}
       className={`long-table-wrapper ${
         status === "occupied" ? "long-table-wrapper--occupied" : ""
       }`}
-      onClick={() => setShowOrderBar(true)}
+      onClick={occupyTableHandler}
     >
       <div className="long-table">
         <span className="long-table__label">T{tableNumber}</span>

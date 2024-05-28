@@ -11,12 +11,8 @@ const Menu = () => {
   };
   return (
     <div className="menu">
-      <div style={{ display: "flex", flexDirection: "column", flexGrow: 1}}>
-        <div>
-          <Searchbar onChange={onChangeSearch} value={searchedValue} />
-        </div>
-        <MealsList searchedValue={searchedValue} />
-      </div>
+      <Searchbar onChange={onChangeSearch} value={searchedValue} />
+      <MealsList searchedValue={searchedValue} />
     </div>
   );
 };

@@ -2,6 +2,7 @@
   height: 100vh;
   background-color: var(--color-grey-0);
   width: 30rem;
+  min-width: 24rem;
   display: flex;
   flex-direction: column;
 
@@ -18,7 +19,38 @@
       flex-direction: column;
       gap: 1.4rem;
       padding: 1rem 2rem;
+    }
 
+    &__occupied {
+      padding: 2rem;
+      &__buttons {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+
+        &__btn {
+          border: none;
+          padding: 0.6rem 2rem;
+          border-radius: var(--border-radius-md);
+          transition: 0.3s;
+          background-color: var(--color-grey-100);
+
+          &:hover {
+            background-color: var(--color-grey-200);
+          }
+        }
+
+        &__btn:first-child {
+          text-align: center;
+          background-color: var(--color-brand-500);
+          color: var(--color-grey-0);
+
+          &:hover {
+            background-color: var(--color-brand-600);
+          }
+        }
+      }
     }
   }
 
@@ -29,7 +61,7 @@
     padding: 2rem;
     background-color: var(--color-grey-100);
     border-radius: var(--border-radius-lg);
-    
+
     &__subtotal,
     &__tax,
     &__total {
@@ -71,7 +103,7 @@
       padding: 1rem 1rem;
       border-radius: var(--border-radius-md);
       background-color: var(--color-grey-200);
-      transition: .3s;
+      transition: 0.3s;
 
       &:hover {
         background-color: var(--color-grey-300);
