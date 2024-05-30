@@ -4,21 +4,30 @@ import type { IUserRepository } from "../interfaces/IUserRepository";
 
 export class UserService implements IUserService {
   constructor(private userRepository: IUserRepository) {}
-  
+
   async signup(userData: User): Promise<User> {
     return this.userRepository.signup(userData);
   }
-  async login(userData: {email: string, password: string}): Promise<User | null> {
+  async login(userData: { email: string; password: string }): Promise<User | null> {
     return this.userRepository.login(userData);
-  };
-  async findById(id: number): Promise<User | null> {
-    return this.userRepository.findById(id);
+  }
+  async protect(
+    id: number,
+    issuedAt: number
+  ): Promise<{ user: User; changedPasswordAfter: boolean } | null> {
+    return this.userRepository.protect(id, issuedAt);
   }
   async findAll(): Promise<User[]> {
     return this.userRepository.findAll();
   }
-  async create(user: User): Promise<User> {
-    return this.userRepository.create(user);
+  async forgotPassword(email: string, resetURL: string): Promise<User | null> {
+    return this.userRepository.forgotPassword(email, resetURL);
+  }
+  async resetPassword(
+    token: string,
+    reqBody: { password: string; passwordConfirm: string }
+  ): Promise<User | null> {
+    return this.userRepository.resetPassword(token, reqBody);
   }
   async update(id: number, user: User): Promise<User> {
     return this.userRepository.update(id, user);
@@ -26,5 +35,4 @@ export class UserService implements IUserService {
   async delete(id: number): Promise<void> {
     return this.userRepository.delete(id);
   }
-  
 }

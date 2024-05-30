@@ -1,3 +1,4 @@
+import crypto from "crypto";
 import type { Request, Response, NextFunction } from "express";
 import { UserService } from "../../application/services/UserService";
 import { User } from "../../core/domain/entities/User/User";
@@ -20,21 +21,45 @@ class UserController {
   updateUser;
   deleteUser;
 
+  signTokenAndSendResponse(
+    res: Response,
+    statusCode: number,
+    user: User,
+    sendUser: boolean = false
+  ) {
+    const token = signToken(user.id);
+    const expiresIn = Number(process.env.JWT_COOKIE_EXPIRES_IN) || 90;
+
+    const cookieOptions = {
+      expires: new Date(Date.now() + expiresIn * 24 * 60 * 60 * 1000),
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "development" ? false : true,
+    };
+    res.cookie("jwt", token, cookieOptions);
+
+    if (sendUser) {
+      //@ts-ignore
+      user.password = undefined;
+      res.status(statusCode).json({
+        status: "success",
+        token,
+        data: user,
+      });
+    }
+
+    res.status(statusCode).json({
+      status: "success",
+      token,
+    });
+  }
+
   async signup(req: Request, res: Response, next: NextFunction) {
     try {
       const { id, name, email, password, passwordConfirm } = req.body;
       const user = new User(id, name, email, "waiter", password, passwordConfirm);
       const newUser = await this.userService.signup(user);
 
-      const token = signToken(newUser.id);
-
-      res.status(201).json({
-        status: "success",
-        token,
-        data: {
-          user: newUser,
-        },
-      });
+      this.signTokenAndSendResponse(res, 201, newUser, true);
     } catch (error) {
       next(error);
     }
@@ -54,23 +79,7 @@ class UserController {
         return next(new AppError("Incorrect user data!", 401));
       }
 
-      const token = signToken(user.id);
-      const expiresIn = Number(process.env.JWT_COOKIE_EXPIRES_IN) || 90;
-
-      const cookieOptions = {
-        expires: new Date(Date.now() + expiresIn * 24 * 60 * 60 * 1000),
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "development" ? false : true,
-      };
-
-      res.cookie("jwt", token, cookieOptions);
-      //@ts-ignore
-      user.password = undefined;
-      res.status(200).json({
-        status: "success",
-        token,
-        data: user,
-      });
+      this.signTokenAndSendResponse(res, 200, user, true);
     } catch (error) {
       next(error);
     }
@@ -110,12 +119,20 @@ class UserController {
 
       const verifiedData = await verifyToken(token);
 
-      const user = await this.userService.findById(verifiedData.id);
+      const response = await this.userService.protect(verifiedData.id, verifiedData.iat);
 
-      if (!user)
+      if (!response)
         return next(
           new AppError("The user belonging to this token does no longer exist.", 401)
         );
+
+      const { user, changedPasswordAfter } = response;
+
+      if (changedPasswordAfter) {
+        return next(
+          new AppError("User recently changed password! Please login again.", 401)
+        );
+      }
 
       req.user = user;
       next();
@@ -124,7 +141,7 @@ class UserController {
     }
   }
 
-	restrictTo(...userRoles: string[]) {
+  restrictTo(...userRoles: string[]) {
     return async (req: Request & { user?: User }, res: Response, next: NextFunction) => {
       try {
         const user = req.user;
@@ -142,6 +159,49 @@ class UserController {
     };
   }
 
+  async forgotPassword(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { email } = req.body;
+      const resetURL = `${req.protocol}://${req.get("host")}/api/v1/users/resetPassword/`;
+
+      const user = await this.userService.forgotPassword(email, resetURL);
+
+      if (!user) {
+        return next(
+          new AppError("User cannot be found or there was an error sending an email", 404)
+        );
+      }
+
+      res.status(200).json({
+        status: "success",
+        message: "The email was sended sucessfully!",
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async resetPassword(req: Request, res: Response, next: NextFunction) {
+    try {
+      const encryptToken = crypto
+        .createHash("sha256")
+        .update(req.params.token)
+        .digest("hex");
+
+      const reqBody = req.body;
+
+      const user = await this.userService.resetPassword(encryptToken, reqBody);
+
+      if (!user) {
+        return next(new AppError("User cannot be found!", 404));
+      }
+
+      this.signTokenAndSendResponse(res, 200, user, false);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getUser(req: Request & { user?: User }, res: Response, next: NextFunction) {
     try {
       const user = req.user;
@@ -155,8 +215,6 @@ class UserController {
       next(error);
     }
   }
-
-
 }
 
 const userRepository = new UserRepository();
