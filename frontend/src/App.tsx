@@ -11,6 +11,8 @@ import Settings from "./pages/Settings/Settings";
 import Orders from "./pages/Orders/Orders";
 import OrderProvider from "./context/OrderContext";
 import NotFound from "./pages/NotFound/NotFound";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,6 +45,8 @@ function App() {
               </Route>
               <Route index element={<Login />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/forgotPassword" element={<ForgotPassword />} />
+              <Route path="/resetPassword/:token" element={<ResetPassword />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

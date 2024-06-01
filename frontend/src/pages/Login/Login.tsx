@@ -1,10 +1,11 @@
 import { useState } from "react";
 import "./Login.less";
-import { useLogin } from "../../hooks/useLogin";
+import { useLogin } from "../../hooks/Auth/useLogin";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("karol@onet.pl");
-  const [password, setPassword] = useState("12345678");
+  const [password, setPassword] = useState("12345678!");
   const { login, isLoading } = useLogin();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,11 +62,8 @@ const Login = () => {
                 disabled={isLoading}
               />
             </div>
-            <div
-             className="login-container__login__inner__form__btn--forgot"
-            >
-              <button
-              >Forgot password?</button>
+            <div className="login-container__login__inner__form__btn--forgot">
+              <Link to={"/forgotPassword"}>Forgot password?</Link>
             </div>
             <button
               className="login-container__login__inner__form__btn"

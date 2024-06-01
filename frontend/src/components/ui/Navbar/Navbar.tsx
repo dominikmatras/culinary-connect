@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { MdLogout } from "react-icons/md";
-import { useLogout } from "../../../hooks/useLogout";
-import { useUser } from "../../../hooks/useUser";
+import { useLogout } from "../../../hooks/Auth/useLogout";
 import { navItems } from "./navItems";
+import { useUser } from "../../../hooks/User/useUser";
 import "./Navbar.less";
 
 const Navbar = () => {

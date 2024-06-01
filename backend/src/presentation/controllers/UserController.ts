@@ -162,7 +162,8 @@ class UserController {
   async forgotPassword(req: Request, res: Response, next: NextFunction) {
     try {
       const { email } = req.body;
-      const resetURL = `${req.protocol}://${req.get("host")}/api/v1/users/resetPassword/`;
+      
+      const resetURL = `${req.get("origin")}/resetPassword/`;
 
       const user = await this.userService.forgotPassword(email, resetURL);
 

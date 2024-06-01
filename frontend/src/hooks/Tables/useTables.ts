@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getTables } from "../services/apiTables";
+import { getTables } from "../../services/apiTables";
 
 export const useTables = () => {
   const { data: tables, isLoading } = useQuery({

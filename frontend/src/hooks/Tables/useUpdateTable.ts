@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateTable as updateTableAPI } from "../services/apiTables";
+import { updateTable as updateTableAPI } from "../../services/apiTables";
 import toast from "react-hot-toast";
 
 export const useUpdateTable = () => {

@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { PAGE_SIZE } from "../../../utils/constants";
-import { useMeals } from "../../../hooks/useMeals";
+
+import { useMeals } from "../../../hooks/Meals/useMeals";
 import MealItem from "../MealItem/MealItem";
 import Pagination from "../../ui/Pagination/Pagination";
-import "./MealsList.less";
 import Spinner from "../../ui/Spinner/Spinner";
+import "./MealsList.less";
 
 type MealsListProps = {
   searchedValue: string;
@@ -19,7 +20,7 @@ export type Meal = {
 const MealsList = ({ searchedValue }: MealsListProps) => {
   const [page, setPage] = useState(1);
   const { meals, isLoading } = useMeals();
-  if (isLoading || !meals) return <Spinner/>;
+  if (isLoading || !meals) return <Spinner />;
 
   const pagedMeals = meals.slice(page * PAGE_SIZE - PAGE_SIZE, PAGE_SIZE * page);
 
@@ -29,21 +30,23 @@ const MealsList = ({ searchedValue }: MealsListProps) => {
 
   return (
     <>
-    <div className="meals-list">
-      <ul className="meals-list__list">
-        {filteredMeals.map((meal: Meal) => {
-          return <MealItem key={meal.id} id={meal.id} name={meal.name} price={meal.price} />;
-        })}
-      </ul>
-    </div>
+      <div className="meals-list">
+        <ul className="meals-list__list">
+          {filteredMeals.map((meal: Meal) => {
+            return (
+              <MealItem key={meal.id} id={meal.id} name={meal.name} price={meal.price} />
+            );
+          })}
+        </ul>
+      </div>
       <Pagination
         className="meals-list__pagination"
         pageSize={PAGE_SIZE}
         count={meals.length}
         setPage={setPage}
         page={page}
-        />
-        </>
+      />
+    </>
   );
 };
 

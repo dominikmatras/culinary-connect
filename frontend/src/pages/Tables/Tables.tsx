@@ -1,4 +1,4 @@
-import { useTables } from "../../hooks/useTables";
+import { useTables } from "../../hooks/Tables/useTables";
 import LongTable from "../../components/ui/LongTable/LongTable";
 import ShortTable from "../../components/ui/ShortTable/ShortTable";
 import "./Tables.less";
@@ -13,9 +13,11 @@ export type Table = {
 const Tables = () => {
   const { tables, isLoading } = useTables();
 
-  if (isLoading || !tables) return <Spinner/>;
+  if (isLoading || !tables) return <Spinner />;
 
-  const sortedTables = tables.sort((tableA: Table, tableB: Table) => tableA.id - tableB.id)
+  const sortedTables = tables.sort(
+    (tableA: Table, tableB: Table) => tableA.id - tableB.id
+  );
 
   return (
     <div className="tables">

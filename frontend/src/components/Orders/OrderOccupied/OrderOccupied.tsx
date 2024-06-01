@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useOrderContext } from "../../../context/OrderContext";
-import { useUpdateTable } from "../../../hooks/useUpdateTable";
+import { useUpdateTable } from "../../../hooks/Tables/useUpdateTable";
 
 type OrderOccupiedProps = {
   closeBar: () => void;
@@ -12,7 +12,7 @@ const OrderOccupied = ({ closeBar }: OrderOccupiedProps) => {
 
   const makeTableAvailable = () => {
     updateTable({ id: table.id, status: "available" });
-    dispatch({ type: "SET_TABLE", payload: { ...table, status: "available" } })
+    dispatch({ type: "SET_TABLE", payload: { ...table, status: "available" } });
   };
 
   const startOrder = () => {
@@ -41,10 +41,7 @@ const OrderOccupied = ({ closeBar }: OrderOccupiedProps) => {
             Make Order
           </Link>
         )}
-        <button
-          className="order-bar__content__occupied__buttons__btn"
-          onClick={closeBar}
-        >
+        <button className="order-bar__content__occupied__buttons__btn" onClick={closeBar}>
           Close
         </button>
       </div>
