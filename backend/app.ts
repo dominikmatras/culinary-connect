@@ -7,6 +7,7 @@ import { AppError } from './utils/AppError'
 import { router as mealRouter } from './src/presentation/routes/mealRouter'
 import { router as userRouter } from './src/presentation/routes/userRouter'
 import { router as tableRouter } from './src/presentation/routes/tableRouter'
+import { router as orderRouter } from './src/presentation/routes/orderRouter'
 import { globalErrorHandler } from './src/presentation/middleware/errorHandler'
 
 dotenv.config({ path: './config.env' })
@@ -28,6 +29,7 @@ app.use(
 app.use('/api/v1/meals', mealRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/tables', tableRouter)
+app.use('/api/v1/orders', orderRouter)
 
 app.all('*', (req, res, next) => {
 	const err = new AppError(`Can't find ${req.originalUrl} on this server!`, 404)
