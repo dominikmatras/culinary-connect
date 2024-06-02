@@ -12,7 +12,7 @@ export class UserService implements IUserService {
     return this.userRepository.login(userData);
   }
   async protect(
-    id: number,
+    id: string,
     issuedAt: number
   ): Promise<{ user: User; changedPasswordAfter: boolean } | null> {
     return this.userRepository.protect(id, issuedAt);
@@ -29,10 +29,10 @@ export class UserService implements IUserService {
   ): Promise<User | null> {
     return this.userRepository.resetPassword(token, reqBody);
   }
-  async update(id: number, user: User): Promise<User> {
+  async update(id: string, user: User): Promise<User> {
     return this.userRepository.update(id, user);
   }
-  async delete(id: number): Promise<void> {
+  async delete(id: string): Promise<void> {
     return this.userRepository.delete(id);
   }
 }

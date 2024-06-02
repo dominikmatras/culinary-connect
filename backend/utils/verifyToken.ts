@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { promisify } from 'util';
 
 type VerifiedData = {
-  id: number,
+  id: string,
   iat: number,
   exp: number
 }

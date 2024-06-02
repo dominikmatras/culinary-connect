@@ -1,4 +1,5 @@
 import { API_VERSION, HOST } from "../utils/constants";
+import { throwErrorHandler } from "../utils/helpers";
 
 export const getMeals = async () => {
   try {
@@ -6,11 +7,16 @@ export const getMeals = async () => {
       method: "GET",
       credentials: "include",
     });
+
+    if (!res.ok) {
+      const { message } = await res.json();
+      throw new Error(message);
+    }
+
     const { data } = await res.json();
 
     return data;
   } catch (error) {
-    console.log(error);
-    throw new Error("Error fetching meals");
+    throwErrorHandler(error, "Error fetching meals");
   }
 };

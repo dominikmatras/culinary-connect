@@ -55,8 +55,9 @@ class UserController {
 
   async signup(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id, name, email, password, passwordConfirm } = req.body;
-      const user = new User(id, name, email, "waiter", password, passwordConfirm);
+      const id = crypto.randomUUID();
+      const { name, email, password, passwordConfirm, role } = req.body;
+      const user = new User(id, name, email, role, password, passwordConfirm);
       const newUser = await this.userService.signup(user);
 
       this.signTokenAndSendResponse(res, 201, newUser, true);
@@ -162,7 +163,7 @@ class UserController {
   async forgotPassword(req: Request, res: Response, next: NextFunction) {
     try {
       const { email } = req.body;
-      
+
       const resetURL = `${req.get("origin")}/resetPassword/`;
 
       const user = await this.userService.forgotPassword(email, resetURL);

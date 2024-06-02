@@ -1,4 +1,35 @@
 import { API_VERSION, HOST } from "../utils/constants";
+import { throwErrorHandler } from "../utils/helpers";
+
+export const signup = async (data: {
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+  role: string;
+}) => {
+  try {
+    const res = await fetch(`${HOST}${API_VERSION}/users/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      const { message } = await res.json();
+      throw new Error(message);
+    }
+
+    const userData = await res.json();
+
+    return userData.data;
+  } catch (error) {
+    throwErrorHandler(error, "Error signing up");
+  }
+};
 
 export const login = async (data: { email: string; password: string }) => {
   try {
@@ -11,12 +42,16 @@ export const login = async (data: { email: string; password: string }) => {
       body: JSON.stringify(data),
     });
 
+    if (!res.ok) {
+      const { message } = await res.json();
+      throw new Error(message);
+    }
+
     const userData = await res.json();
 
     return userData.data;
   } catch (error) {
-    console.log(error);
-    throw new Error("Error logging in");
+    throwErrorHandler(error, "Error logging in");
   }
 };
 
@@ -30,10 +65,14 @@ export const logout = async () => {
       credentials: "include",
     });
 
+    if (!res.ok) {
+      const { message } = await res.json();
+      throw new Error(message);
+    }
+
     return res;
   } catch (error) {
-    console.log(error);
-    throw new Error("Error logging out");
+    throwErrorHandler(error, "Error logging out");
   }
 };
 
@@ -47,11 +86,15 @@ export const getUser = async () => {
       credentials: "include",
     });
 
+    if (!res.ok) {
+      const { message } = await res.json();
+      throw new Error(message);
+    }
+
     const { data: user } = await res.json();
     return user;
   } catch (error) {
-    console.log(error);
-    throw new Error("Error logging out");
+    throwErrorHandler(error, "Error getting user");
   }
 };
 
@@ -79,13 +122,7 @@ export const forgotPassword = async (email: string) => {
 
     return { message };
   } catch (error) {
-    if (error instanceof Error && error.message) {
-      console.log(error);
-      throw error;
-    } else {
-      console.log(error);
-      throw new Error("Error sending an email");
-    }
+    throwErrorHandler(error, "Error sending an email");
   }
 };
 
@@ -118,12 +155,6 @@ export const resetPassword = async (data: {
 
     return { message };
   } catch (error) {
-    if (error instanceof Error && error.message) {
-      console.log(error);
-      throw error;
-    } else {
-      console.log(error);
-      throw new Error("Error in changing password");
-    }
+    throwErrorHandler(error, "Error in changing password");
   }
 };

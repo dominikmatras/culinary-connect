@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import crypto from "crypto";
 
 interface UserDocument extends Document {
-  id: number;
+  id: string;
   name: string;
   email: string;
   role: "cooker" | "waiter" | "manager";
@@ -20,7 +20,7 @@ interface UserDocument extends Document {
 
 const userSchema = new mongoose.Schema({
   id: {
-    type: Number,
+    type: String,
     required: [true, "A user must have an id"],
     unique: true,
   },

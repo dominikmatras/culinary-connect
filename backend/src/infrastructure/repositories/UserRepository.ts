@@ -69,7 +69,7 @@ export class UserRepository implements IUserRepository {
   }
 
   async protect(
-    id: number,
+    id: string,
     issuedAt: number
   ): Promise<{ user: User; changedPasswordAfter: boolean } | null> {
     const user = await UserModel.findOne({ id });
@@ -86,11 +86,11 @@ export class UserRepository implements IUserRepository {
     return users.map(UserMapper.toDomainEntity);
   }
 
-  async update(id: number, user: User): Promise<User> {
+  async update(id: string, user: User): Promise<User> {
     throw new Error("Method not implemented.");
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: string): Promise<void> {
     throw new Error("Method not implemented.");
   }
 }

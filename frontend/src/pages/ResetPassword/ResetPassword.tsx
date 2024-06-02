@@ -51,6 +51,7 @@ const ResetPassword = () => {
             <input
               disabled={isLoading}
               id="password"
+              type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -60,6 +61,7 @@ const ResetPassword = () => {
             <input
               disabled={isLoading}
               id="passwordConfirm"
+              type="password"
               value={passwordConfirm}
               onChange={(e) => setPasswordConfirm(e.target.value)}
             />

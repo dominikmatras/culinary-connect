@@ -9,10 +9,10 @@ export interface IUserRepository {
     reqBody: { password: string; passwordConfirm: string }
   ): Promise<User | null>;
   protect(
-    id: number,
+    id: string,
     issuedAt: number
   ): Promise<{ user: User; changedPasswordAfter: boolean } | null>;
   findAll(): Promise<User[]>;
-  update(id: number, user: User): Promise<User>;
-  delete(id: number): Promise<void>;
+  update(id: string, user: User): Promise<User>;
+  delete(id: string): Promise<void>;
 }

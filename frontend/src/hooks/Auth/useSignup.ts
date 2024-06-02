@@ -1,25 +1,33 @@
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { login as loginAPI } from "../../services/apiAuth";
+import { signup as signupAPI } from "../../services/apiAuth";
 
-export const useLogin = () => {
+export const useSignup = () => {
   const navigate = useNavigate();
   const { mutate, isPending: isLoading } = useMutation({
-    mutationFn: (data: { email: string; password: string }) => loginAPI(data),
+    mutationFn: (data: {
+      name: string;
+      email: string;
+      password: string;
+      passwordConfirm: string;
+      role: string;
+    }) => signupAPI(data),
     onSuccess: (user) => {
+      console.log(user);
+      
       if (user.role === "cooker") {
         navigate("/kitchen");
       } else {
         navigate("/menu");
       }
-      toast.success("Logged in successfully!");
+      toast.success("Signup successfull!");
     },
     onError: (err) => {
-      toast.error(err.message ?? "Failed to login!");
+      toast.error(err.message ?? "Failed to signup!");
       console.log(err);
     },
   });
 
-  return { login: mutate, isLoading };
+  return { signup: mutate, isLoading };
 };
