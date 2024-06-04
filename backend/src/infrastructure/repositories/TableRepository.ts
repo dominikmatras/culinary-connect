@@ -10,7 +10,7 @@ export class TableRepository implements ITableRepository {
 	}
 
 	async findAll(): Promise<Table[]> {
-		const tableModel = await TableModel.find()
+		const tableModel = await TableModel.find();
 		return tableModel.map(TableMapper.toDomainEntity)
 	}
 

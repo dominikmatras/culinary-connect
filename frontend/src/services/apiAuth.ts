@@ -120,7 +120,7 @@ export const forgotPassword = async (email: string) => {
 
     const { message } = await res.json();
 
-    return { message };
+    return message;
   } catch (error) {
     throwErrorHandler(error, "Error sending an email");
   }

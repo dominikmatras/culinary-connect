@@ -13,15 +13,15 @@ export class OrderService implements IOrderService {
 		return this.orderRepository.findAll()
 	}
 
-	async findById(id: number): Promise<Order | null> {
+	async findById(id: string): Promise<Order | null> {
 		return this.orderRepository.findById(id)
 	}
 
-	async update(id: number, order: Order): Promise<Order | null> {
+	async update(id: string, order: Order): Promise<Order | null> {
 		return this.orderRepository.update(id, order)
 	}
 
-	async delete(id: number): Promise<Order | null> {
+	async delete(id: string): Promise<Order | null> {
 		return this.orderRepository.delete(id)
 	}
 }

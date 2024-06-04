@@ -15,12 +15,12 @@ export class OrderRepository implements IOrderRepository {
 		return orderModels.map(OrderMapper.toDomainEntity)
 	}
 
-	async findById(id: number): Promise<Order | null> {
+	async findById(id: string): Promise<Order | null> {
 		const orderModel = await OrderModel.findOne({ id: id })
 		return orderModel ? OrderMapper.toDomainEntity(orderModel) : null
 	}
 
-	async update(id: number, orderDataToUpdate: Partial<Order>): Promise<Order | null> {
+	async update(id: string, orderDataToUpdate: Partial<Order>): Promise<Order | null> {
 		const updatedOrder = await OrderModel.findOneAndUpdate({ id: id }, orderDataToUpdate, {
 			new: true,
 			runValidators: true,
@@ -28,7 +28,7 @@ export class OrderRepository implements IOrderRepository {
 		return updatedOrder ? OrderMapper.toDomainEntity(updatedOrder) : null
 	}
 
-	async delete(id: number): Promise<Order | null> {
+	async delete(id: string): Promise<Order | null> {
 		const order = await OrderModel.findOneAndDelete({ id: id })
 		return order ? OrderMapper.toDomainEntity(order) : null
 	}

@@ -2,12 +2,12 @@ import { Table } from "../../../pages/Tables/Tables";
 import { useOrderContext } from "../../../context/OrderContext";
 import "./ShortTable.less";
 
-const ShortTable = ({ id, status, tableNumber }: Table) => {
+const ShortTable = ({ id, status, tableNumber, orders }: Table) => {
   const { dispatch } = useOrderContext();
 
   const occupyTableHandler = () => {
     dispatch({ type: "SHOW_ORDER_BAR", payload: true });
-    dispatch({ type: "SET_TABLE", payload: { id, tableNumber, status } });
+    dispatch({ type: "SET_TABLE", payload: { id, tableNumber, status, orders } });
   };
 
   return (

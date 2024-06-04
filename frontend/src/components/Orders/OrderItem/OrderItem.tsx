@@ -1,7 +1,7 @@
 import { Meal } from "../../Meals/MealsList/MealsList";
 import "./OrderItem.less";
 
-const OrderItem = ({ id, price, name }: Meal) => {
+const OrderItem = ({ id, price, name, quantity }: Meal & {quantity: number}) => {
   return (
     <li className="order-item">
       <div className="order-item__img" />
@@ -9,10 +9,10 @@ const OrderItem = ({ id, price, name }: Meal) => {
         <h5 className="order-item__title-container__title">{name}</h5>
         <div>
           <p className="order-item__title-container__qty">
-            <span>1x</span>
+            <span>{quantity}x</span>
           </p>
           <p className="order-item__title-container__price">
-            <span>${price}</span>
+            <span>${(price * quantity).toFixed(2)}</span>
           </p>
         </div>
       </div>

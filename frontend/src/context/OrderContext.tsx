@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useState } from "react";
+import { createContext, useContext, useReducer } from "react";
 import { Table } from "../pages/Tables/Tables";
 
 type OrderProviderType = {
@@ -24,30 +24,45 @@ const reducer = (state: any, action: any) => {
     case "START_ORDER":
       return { ...state, startOrder: action.payload };
     case "ADD_MEAL_TO_ORDER":
+      if(state.mealsToOrder.some((meal: any) => meal.id === action.payload.id)) {
+        return {
+          ...state,
+          mealsToOrder: state.mealsToOrder.map((meal: any) =>
+            meal.id === action.payload.id
+              ? { ...meal, quantity: meal.quantity + 1 }
+              : meal
+          ),
+        };
+      }
       return { ...state, mealsToOrder: [...state.mealsToOrder, action.payload] };
+    case "CLEAR_ORDER":
+      return { ...state, mealsToOrder: [], startOrder: false, showOrderBar: false }
     default:
       return state;
   }
-}
+};
 
 const OrderProvider = ({ children }: OrderProviderType) => {
-  const [{ table, showOrderBar, startOrder, mealsToOrder }, dispatch] = useReducer(reducer, {
-    table: {
-      id: 0,
-      tableNumber: 0,
-      status: "",
-    },
-    showOrderBar: false,
-    startOrder: false,
-    mealsToOrder: [],
-  });
+  const [{ table, showOrderBar, startOrder, mealsToOrder }, dispatch] = useReducer(
+    reducer,
+    {
+      table: {
+        id: 0,
+        tableNumber: 0,
+        status: "",
+      },
+      showOrderBar: false,
+      startOrder: false,
+      mealsToOrder: [],
+    }
+  );
 
   const value = {
     showOrderBar,
     table,
     startOrder,
     mealsToOrder,
-    dispatch
+    dispatch,
   };
   return <OrderContext.Provider value={value}>{children}</OrderContext.Provider>;
 };

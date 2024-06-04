@@ -6,12 +6,12 @@ type LongTableProps = {
   style: React.CSSProperties;
 };
 
-const LongTable = ({ id, style, status, tableNumber }: LongTableProps & Table) => {
+const LongTable = ({ id, style, status, tableNumber, orders }: LongTableProps & Table) => {
   const { dispatch } = useOrderContext();
 
   const occupyTableHandler = () => {
     dispatch({ type: "SHOW_ORDER_BAR", payload: true });
-    dispatch({ type: "SET_TABLE", payload: { id, tableNumber, status } });
+    dispatch({ type: "SET_TABLE", payload: { id, tableNumber, status, orders } });
   };
 
   return (

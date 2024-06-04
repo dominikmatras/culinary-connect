@@ -1,12 +1,21 @@
+import toast from "react-hot-toast";
 import { useOrderContext } from "../../../context/OrderContext";
 import { Meal } from "../MealsList/MealsList";
 import "./MealItem.less";
+import { useNavigate } from "react-router-dom";
+import { FcInfo } from "react-icons/fc";
 
 const MealItem = ({ id, name, price }: Meal) => {
-  const { dispatch } = useOrderContext();
+  const navigate = useNavigate();
+  const { dispatch, startOrder } = useOrderContext();
 
   const addMealToOrderHandler = () => {
-    dispatch({ type: "ADD_MEAL_TO_ORDER", payload: { id, name, price } });
+    if (!startOrder) {
+      toast("You have to choose a table first!", {icon: <FcInfo />});
+      navigate('/tables');
+      return;
+    }
+    dispatch({ type: "ADD_MEAL_TO_ORDER", payload: { id, name, price, quantity: 1 } });
   };
 
   return (

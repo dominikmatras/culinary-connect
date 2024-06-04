@@ -11,7 +11,7 @@ export const useLogin = () => {
       if (user.role === "cooker") {
         navigate("/kitchen");
       } else {
-        navigate("/menu");
+        navigate("/tables");
       }
       toast.success("Logged in successfully!");
     },

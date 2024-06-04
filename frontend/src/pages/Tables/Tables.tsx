@@ -8,6 +8,13 @@ export type Table = {
   id: number;
   status: string;
   tableNumber: number;
+  orders?: {
+    id: string;
+    tableId: number;
+    meals: { meal: number; quantity: number }[];
+    status: string;
+    createAt: Date;
+  }[];
 };
 
 const Tables = () => {
@@ -30,6 +37,7 @@ const Tables = () => {
               key={table.id}
               tableNumber={table.tableNumber}
               status={table.status}
+              orders={table.orders}
               style={
                 table.id === 2
                   ? { gridRow: "2 / 5", gridColumn: "2 / 3" }
@@ -44,6 +52,7 @@ const Tables = () => {
             key={table.id}
             tableNumber={table.tableNumber}
             status={table.status}
+            orders={table.orders}
           />
         );
       })}

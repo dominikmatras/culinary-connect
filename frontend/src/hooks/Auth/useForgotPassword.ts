@@ -9,8 +9,8 @@ export const useForgotPassword = () => {
     isSuccess,
   } = useMutation({
     mutationFn: (email: string) => forgotPasswordAPI(email),
-    onSuccess: (data: { message: string; }) => {
-      toast.success(data.message);
+    onSuccess: (message: string) => {
+      toast.success(message);
     },
     onError: (err) => {
       toast.error(err.message ?? "Failed to send email!");

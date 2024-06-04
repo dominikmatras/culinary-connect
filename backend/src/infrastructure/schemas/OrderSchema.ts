@@ -2,29 +2,31 @@ import mongoose from 'mongoose'
 
 const orderSchema = new mongoose.Schema({
 	id: {
-		type: Number,
+		type: String,
 		required: true,
 		unique: true,
 	},
 	tableId: {
 		type: Number,
-		required: true,
+		ref: "Table",
+		required: [true, 'Order must have a table'],
 	},
 	meals: [
 		{
-			mealId: {
+			meal: {
 				type: Number,
-				required: true,
+				ref: 'Meal',
+				required: [true, 'Order must have a meal'],
 			},
 			quantity: {
 				type: Number,
-				required: true,
+				required: [true, 'Meal in order must have a quantity'],
 			},
 		},
 	],
 	status: {
 		type: String,
-		enum: ['pending', 'delivered'],
+		enum: ['pending', 'completed', 'cancelled'],
 		required: true,
 	},
 	createAt: {

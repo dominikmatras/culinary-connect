@@ -3,7 +3,7 @@ import { TableModel } from '../schemas/TableSchema'
 
 export class TableMapper {
 	static toDomainEntity(tableModel: any) {
-		return new Table(tableModel.id, tableModel.tableNumber, tableModel.status)
+		return new Table(tableModel.id, tableModel.tableNumber, tableModel.status, tableModel.orders)
 	}
 
 	static toMongoTable(table: Table) {
