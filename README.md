@@ -1,6 +1,6 @@
-## About
+## About application
 
-App Name: **Culinary Connect**
+App Name: **👨🏻‍🍳 Culinary Connect**
 
 An application written by us for efficient restaurant service.
 
@@ -19,6 +19,10 @@ We used React.js library witch Vite engine to write a frontend. Less.js is respo
 
 - React.js - 18.2.0
 - Less.js - 4.2.0
+
+## Culinary Connect API
+
+[Documentation API](/api-documentation.md)
 
 ## Startup
 
