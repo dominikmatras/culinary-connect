@@ -15,12 +15,12 @@ export class MealRepository implements IMealRepository {
 		return mealModels.map(MealMapper.toDomainEntity) // Convert each MongoDB model to domain entity
 	}
 
-	async findById(id: number): Promise<Meal | null> {
+	async findById(id: string): Promise<Meal | null> {
 		const mealModel = await MealModel.findOne({ id: id })
 		return mealModel ? MealMapper.toDomainEntity(mealModel) : null
 	}
 
-	async update(id: number, mealDataToUpdate: Partial<Meal>): Promise<Meal | null> {
+	async update(id: string, mealDataToUpdate: Partial<Meal>): Promise<Meal | null> {
 		const updatedMeal = await MealModel.findOneAndUpdate({ id: id }, mealDataToUpdate, {
 			new: true,
 			runValidators: true,
@@ -28,7 +28,7 @@ export class MealRepository implements IMealRepository {
 		return updatedMeal ? MealMapper.toDomainEntity(updatedMeal) : null
 	}
 
-	async delete(id: number): Promise<Meal | null> {
+	async delete(id: string): Promise<Meal | null> {
 		const meal = await MealModel.findOneAndDelete({ id: id })
 		return meal ? MealMapper.toDomainEntity(meal) : null
 	}

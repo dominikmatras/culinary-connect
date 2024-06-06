@@ -7,7 +7,6 @@ export class OrderMapper {
 			orderModel.id,
 			orderModel.tableId,
 			orderModel.meals,
-			orderModel.quantity,
 			orderModel.status,
 			orderModel.createdAt
 		)
@@ -18,7 +17,6 @@ export class OrderMapper {
 			id: order.id,
 			tableId: order.tableId,
 			meals: order.meals,
-			quantity: order.quantity,
 			status: order.status,
 			createdAt: order.createdAt,
 		})

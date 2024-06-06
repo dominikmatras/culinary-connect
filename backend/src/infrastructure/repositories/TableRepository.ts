@@ -4,13 +4,13 @@ import { TableMapper } from '../mappers/TableMapper'
 import { TableModel } from '../schemas/TableSchema'
 
 export class TableRepository implements ITableRepository {
-	async findById(id: number): Promise<Table | null> {
+	async findById(id: string): Promise<Table | null> {
 		const tableModel = await TableModel.findOne({ id })
 		return tableModel ? TableMapper.toDomainEntity(tableModel) : null
 	}
 
 	async findAll(): Promise<Table[]> {
-		const tableModel = await TableModel.find();
+		const tableModel = await TableModel.find()
 		return tableModel.map(TableMapper.toDomainEntity)
 	}
 
@@ -20,7 +20,7 @@ export class TableRepository implements ITableRepository {
 		return TableMapper.toDomainEntity(createTable)
 	}
 
-	async update(id: number, tableDataToUpdate: Table): Promise<Table | null> {
+	async update(id: string, tableDataToUpdate: Table): Promise<Table | null> {
 		const tableUpdate = await TableModel.findOneAndUpdate({ id }, tableDataToUpdate, {
 			new: true,
 			runValidators: true,
@@ -28,7 +28,7 @@ export class TableRepository implements ITableRepository {
 		return tableUpdate ? TableMapper.toDomainEntity(tableUpdate) : null // Problem with null in Table.ts (entity)
 	}
 
-	async delete(id: number): Promise<Table | null> {
+	async delete(id: string): Promise<Table | null> {
 		const deleteTable = await TableModel.findOneAndDelete({ id })
 		return deleteTable ? TableMapper.toDomainEntity(deleteTable) : null
 	}
