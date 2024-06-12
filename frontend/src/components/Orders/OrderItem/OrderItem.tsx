@@ -1,10 +1,10 @@
 import { Meal } from "../../Meals/MealsList/MealsList";
 import "./OrderItem.less";
 
-const OrderItem = ({ id, price, name, quantity }: Meal & {quantity: number}) => {
+const OrderItem = ({ id, price, name, photoPath, quantity }: Meal & {quantity: number}) => {
   return (
     <li className="order-item">
-      <div className="order-item__img" />
+      <div className="order-item__img" style={{ backgroundImage: `url(${photoPath})`}}/>
       <div className="order-item__title-container">
         <h5 className="order-item__title-container__title">{name}</h5>
         <div>

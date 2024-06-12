@@ -19,6 +19,7 @@ const OrderBarFooter = ({ closeBar, createOrder, isLoading }: OrderBarFooterProp
 
   const finalMealsToOrder = mealsToOrder.map((meal) => ({
     meal: meal.id,
+    mealName: meal.name,
     quantity: meal.quantity,
   }));
 

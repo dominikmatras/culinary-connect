@@ -4,10 +4,10 @@ import { Meal } from "../../Meals/MealsList/MealsList";
 import OrderItem from "../OrderItem/OrderItem";
 import OrderBarFooter from "../OrderBarFooter/OrderBarFooter";
 import OrderOccupied from "../OrderOccupied/OrderOccupied";
-import "./OrderBar.less";
 import { useCreateOrder } from "../../../hooks/Orders/useCreateOrder";
 import Spinner from "../../ui/Spinner/Spinner";
 import { useUpdateTable } from "../../../hooks/Tables/useUpdateTable";
+import "./OrderBar.less";
 
 const OrderBar = () => {
   const { showOrderBar, table, startOrder, mealsToOrder, dispatch } = useOrderContext();
@@ -50,6 +50,7 @@ const OrderBar = () => {
                   id={meal.id}
                   price={meal.price}
                   name={meal.name}
+                  photoPath={meal.photoPath}
                   quantity={meal.quantity}
                 />
               ))}

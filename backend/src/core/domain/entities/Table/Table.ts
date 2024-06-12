@@ -8,7 +8,7 @@ export class Table {
 			tableId: number
 			meals: { meal: number; quantity: number }[]
 			status: string
-			createAt: Date
+			createdAt: Date
 		}[]
 	) {}
 }

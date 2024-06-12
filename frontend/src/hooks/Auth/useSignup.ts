@@ -15,7 +15,7 @@ export const useSignup = () => {
     }) => signupAPI(data),
     onSuccess: (user) => {
       if (user.role === "cooker") {
-        navigate("/kitchen");
+        navigate("/orders");
       } else {
         navigate("/menu");
       }

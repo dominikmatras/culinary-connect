@@ -8,8 +8,12 @@ export const useLogin = () => {
   const { mutate, isPending: isLoading } = useMutation({
     mutationFn: (data: { email: string; password: string }) => loginAPI(data),
     onSuccess: (user) => {
+      console.log(user.role);
+
       if (user.role === "cooker") {
-        navigate("/kitchen");
+        console.log('dupa');
+        
+        navigate("/orders");
       } else {
         navigate("/tables");
       }
