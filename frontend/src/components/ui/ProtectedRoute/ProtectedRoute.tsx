@@ -13,16 +13,11 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(isLoading) return;
-    console.log(user?.role);
-    
     if (
       (location.pathname === "/orders" && user?.role !== "cooker") ||
       (location.pathname === "/menu" && user?.role === "cooker") ||
       (location.pathname === "/tables" && user?.role === "cooker")
     ) {
-      console.log("dupa");
-      
       navigate(-1);
     }
   }, [location.pathname, isLoading, user?.role]);
