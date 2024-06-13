@@ -1,8 +1,7 @@
 import { useTables } from "../../hooks/Tables/useTables";
-import LongTable from "../../components/ui/LongTable/LongTable";
-import ShortTable from "../../components/ui/ShortTable/ShortTable";
-import "./Tables.less";
 import Spinner from "../../components/ui/Spinner/Spinner";
+import Table from "../../components/ui/Table/Table";
+import "./Tables.less";
 
 export type Table = {
   id: number;
@@ -32,7 +31,8 @@ const Tables = () => {
       {sortedTables.map((table: Table) => {
         if (table.id === 2 || table.id === 7) {
           return (
-            <LongTable
+            <Table
+              type="long"
               id={table.id}
               key={table.id}
               tableNumber={table.tableNumber}
@@ -47,7 +47,8 @@ const Tables = () => {
           );
         }
         return (
-          <ShortTable
+          <Table
+            type="short"
             id={table.id}
             key={table.id}
             tableNumber={table.tableNumber}
