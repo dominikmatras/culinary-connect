@@ -7,6 +7,11 @@ export interface IUserService {
     token: string,
     reqBody: { password: string; passwordConfirm: string }
   ): Promise<User | null>;
+  updatePassword(
+    id: string,
+    reqBody: { password: string; newPassword: string; passwordConfirm: string }
+  ): Promise<User | null>;
+  updateMe(id: string, reqBody: { email: string, name: string }): Promise<User | null>;
   protect(
     id: string,
     issuedAt: number

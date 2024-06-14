@@ -8,6 +8,16 @@ router.post("/login", userController.login.bind(userController));
 router.post("/logout", userController.logout.bind(userController));
 router.post("/forgotPassword", userController.forgotPassword.bind(userController));
 router.patch("/resetPassword/:token", userController.resetPassword.bind(userController));
+router.patch(
+  "/updatePassword",
+  userController.protect.bind(userController),
+  userController.updatePassword.bind(userController)
+);
+router.patch(
+  "/updateMe",
+  userController.protect.bind(userController),
+  userController.updateMe.bind(userController)
+);
 router.get(
   "/getUser",
   userController.protect.bind(userController),

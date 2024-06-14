@@ -51,6 +51,7 @@ const ForgotPassword = () => {
             <div className="change-password-modal__form__input">
               <label htmlFor="email">Email</label>
               <input
+                className="input-secondary"
                 disabled={isLoading}
                 id="email"
                 value={email}

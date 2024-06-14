@@ -49,6 +49,7 @@ const ResetPassword = () => {
           <div className="change-password-modal__form__input">
             <label htmlFor="password">New Password</label>
             <input
+              className="input-secondary"
               disabled={isLoading}
               id="password"
               type="password"
@@ -59,6 +60,7 @@ const ResetPassword = () => {
           <div className="change-password-modal__form__input">
             <label htmlFor="passwordConfirm">Confirm Password</label>
             <input
+              className="input-secondary"
               disabled={isLoading}
               id="passwordConfirm"
               type="password"

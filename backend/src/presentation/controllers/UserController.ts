@@ -204,9 +204,47 @@ class UserController {
     }
   }
 
+  async updatePassword(req: Request & { user?: User }, res: Response, next: NextFunction) {
+    try {
+      const id = req.user?.id!;
+      const user = await this.userService.updatePassword(id, req.body);
+
+      if (!user) {
+        return next(new AppError("User cannot be found or you put wrong password!", 404));
+      }
+
+      this.signTokenAndSendResponse(res, 200, user, false);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async updateMe(req: Request & { user?: User }, res: Response, next: NextFunction) {
+    try {
+      const id = req.user?.id!;
+      const user = await this.userService.updateMe(id, req.body);
+
+      if (!user) {
+        return next(new AppError("User cannot be found!", 404));
+      }
+
+      res.status(200).json({
+        status: "success",
+        data: user,
+      });
+      next();
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getUser(req: Request & { user?: User }, res: Response, next: NextFunction) {
     try {
       const user = req.user;
+
+      if (!user) {
+        return next(new AppError("User cannot be found!", 404));
+      }
 
       res.status(200).json({
         status: "success",
