@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 const mealSchema = new mongoose.Schema({
 	id: {
-		type: Number,
+		type: String,
 		required: true,
 		unique: true,
 	},

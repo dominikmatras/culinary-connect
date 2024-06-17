@@ -7,14 +7,14 @@ const orderSchema = new mongoose.Schema({
 		unique: true,
 	},
 	tableId: {
-		type: Number,
-		ref: "Table",
+		type: String,
+		ref: 'Table',
 		required: [true, 'Order must have a table'],
 	},
 	meals: [
 		{
 			meal: {
-				type: Number,
+				type: String,
 				ref: 'Meal',
 				required: [true, 'Order must have a meal'],
 			},
@@ -37,7 +37,6 @@ const orderSchema = new mongoose.Schema({
 		type: Date,
 		default: new Date(Date.now()),
 	},
-});
-
+})
 
 export const OrderModel = mongoose.model('Order', orderSchema)
