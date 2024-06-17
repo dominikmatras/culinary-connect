@@ -2,7 +2,7 @@ import { OrderService } from '../../application/services/OrderService'
 import { OrderRepository } from '../../infrastructure/repositories/OrderRepository'
 import { createOne, getAll, getOne, updateOne, deleteOne } from './handlerFactory'
 
-class OrderController {
+export class OrderController {
 	constructor(private orderService: OrderService) {
 		this.orderCreate = createOne('Order', this.orderService)
 		this.getAllOrders = getAll(this.orderService)
