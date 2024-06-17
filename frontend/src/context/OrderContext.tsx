@@ -24,7 +24,7 @@ const reducer = (state: any, action: any) => {
     case "START_ORDER":
       return { ...state, startOrder: action.payload };
     case "ADD_MEAL_TO_ORDER":
-      if(state.mealsToOrder.some((meal: any) => meal.id === action.payload.id)) {
+      if (state.mealsToOrder.some((meal: any) => meal.id === action.payload.id)) {
         return {
           ...state,
           mealsToOrder: state.mealsToOrder.map((meal: any) =>
@@ -35,8 +35,27 @@ const reducer = (state: any, action: any) => {
         };
       }
       return { ...state, mealsToOrder: [...state.mealsToOrder, action.payload] };
+    case "REMOVE_MEAL_FROM_ORDER":
+      const meal = state.mealsToOrder.find((meal: any) => meal.id === action.payload.id);
+
+      if (meal.quantity === 1) {
+        return {
+          ...state,
+          mealsToOrder: state.mealsToOrder.filter(
+            (meal: any) => meal.id !== action.payload.id
+          ),
+        };
+      }
+      return {
+        ...state,
+        mealsToOrder: state.mealsToOrder.map((meal: any) =>
+          meal.id === action.payload.id
+            ? { ...meal, quantity: meal.quantity - 1 }
+            : meal
+        ),
+      };
     case "CLEAR_ORDER":
-      return { ...state, mealsToOrder: [], startOrder: false, showOrderBar: false }
+      return { ...state, mealsToOrder: [], startOrder: false, showOrderBar: false };
     default:
       return state;
   }

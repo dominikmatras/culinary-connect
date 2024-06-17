@@ -18,6 +18,10 @@ const orderSchema = new mongoose.Schema({
 				ref: 'Meal',
 				required: [true, 'Order must have a meal'],
 			},
+			mealName: {
+				type: String,
+				required: [true, 'Meal in order must have a name'],
+			},
 			quantity: {
 				type: Number,
 				required: [true, 'Meal in order must have a quantity'],
@@ -29,10 +33,11 @@ const orderSchema = new mongoose.Schema({
 		enum: ['pending', 'completed', 'cancelled'],
 		required: true,
 	},
-	createAt: {
+	createdAt: {
 		type: Date,
 		default: new Date(Date.now()),
 	},
-})
+});
+
 
 export const OrderModel = mongoose.model('Order', orderSchema)

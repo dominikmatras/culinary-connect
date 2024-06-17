@@ -19,7 +19,7 @@ export const navItems = [
   {
     title: "Orders",
     icon: <MdOutlineRestaurantMenu />,
-    path: "/kitchen",
+    path: "/orders",
     roles: ["manager", "cooker"]
   },
   {

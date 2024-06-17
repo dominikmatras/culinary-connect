@@ -98,6 +98,29 @@ export const getUser = async () => {
   }
 };
 
+export const updateMe = async (data: { email: string; name: string }) => {
+  try {
+    const res = await fetch(`${HOST}${API_VERSION}/users/updateMe`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      const { message } = await res.json();
+      throw new Error(message);
+    }
+
+    const { data: user } = await res.json();
+    return user;
+  } catch (error) {
+    throwErrorHandler(error, "Error updating user");
+  }
+};
+
 export const forgotPassword = async (email: string) => {
   try {
     const body = {
@@ -156,5 +179,39 @@ export const resetPassword = async (data: {
     return { message };
   } catch (error) {
     throwErrorHandler(error, "Error in changing password");
+  }
+};
+
+export const updatePassword = async (data: {
+  password: string;
+  newPassword: string;
+  passwordConfirm: string;
+}) => {
+  try {
+    const body = {
+      password: data.password,
+      newPassword: data.newPassword,
+      passwordConfirm: data.passwordConfirm,
+    };
+
+    const res = await fetch(`${HOST}${API_VERSION}/users/updatePassword`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(body),
+    });
+
+    if (!res.ok) {
+      const { message } = await res.json();
+      throw new Error(message);
+    }
+
+    const { data: user } = await res.json();
+
+    return user;
+  } catch (error) {
+    throwErrorHandler(error, "Error updating password");
   }
 };

@@ -68,6 +68,42 @@ export class UserRepository implements IUserRepository {
     return UserMapper.toDomainEntity(user);
   }
 
+  async updatePassword(
+    id: string,
+    reqBody: { password: string; newPassword: string; passwordConfirm: string }
+  ): Promise<User | null> {
+    const user = await UserModel.findOne({ id }).select("+password");
+
+    if (!user) return null;
+    if (!(await user.correctPassword(reqBody.password, user.password))) return null;
+
+    user.password = reqBody.newPassword;
+    user.passwordConfirm = reqBody.passwordConfirm;
+
+    await user.save();
+
+    return UserMapper.toDomainEntity(user);
+  }
+
+  async updateMe(
+    id: string,
+    reqBody: { email: string; name: string }
+  ): Promise<User | null> {
+    const body = {
+      email: reqBody.email,
+      name: reqBody.name,
+    }
+
+    const user = await UserModel.findOneAndUpdate({ id }, body, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!user) return null;
+
+    return UserMapper.toDomainEntity(user);
+  }
+
   async protect(
     id: string,
     issuedAt: number

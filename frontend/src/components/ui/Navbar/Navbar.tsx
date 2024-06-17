@@ -3,8 +3,8 @@ import { MdLogout } from "react-icons/md";
 import { useLogout } from "../../../hooks/Auth/useLogout";
 import { navItems } from "./navItems";
 import { useUser } from "../../../hooks/User/useUser";
-import "./Navbar.less";
 import Spinner from "../Spinner/Spinner";
+import "./Navbar.less";
 
 const Navbar = () => {
   const { user, isLoading: isUserLoading } = useUser();

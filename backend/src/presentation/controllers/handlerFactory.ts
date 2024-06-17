@@ -21,8 +21,8 @@ export const createOne =
 			} else if (type === 'Order') {
 				const id = crypto.randomUUID()
 				const { tableId, meals } = req.body
-				const createAt: Date = new Date(Date.now())
-				entity = new Order(id, tableId, meals, 'pending', createAt)
+				const createdAt: Date = new Date(Date.now())
+				entity = new Order(id, tableId, meals, 'pending', createdAt)
 			}
 
 			if (!entity) return

@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import { PAGE_SIZE } from '../../../utils/constants'
-
 import { useMeals } from '../../../hooks/Meals/useMeals'
-import MealItem from '../MealItem/MealItem'
 import Pagination from '../../ui/Pagination/Pagination'
+import MealItem from '../MealItem/MealItem'
 import Spinner from '../../ui/Spinner/Spinner'
 import './MealsList.less'
 
@@ -15,7 +14,7 @@ export type Meal = {
 	id: number
 	name: string
 	price: number
-	photoPath: string
+	photoPath?: string
 }
 
 const MealsList = ({ searchedValue }: MealsListProps) => {
