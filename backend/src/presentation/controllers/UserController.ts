@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import type { Request, Response, NextFunction } from 'express'
+import type { Request, Response, NextFunction, CookieOptions } from 'express'
 import { UserService } from '../../application/services/UserService'
 import { User } from '../../core/domain/entities/User/User'
 import { AppError } from '../../../utils/AppError'
@@ -30,7 +30,7 @@ export class UserController {
 		const token = signToken(user.id)
 		const expiresIn = Number(process.env.JWT_COOKIE_EXPIRES_IN) || 90
 
-		const cookieOptions = {
+		const cookieOptions: CookieOptions = {
 			expires: new Date(Date.now() + expiresIn * 24 * 60 * 60 * 1000),
 			httpOnly: true,
 			secure: process.env.NODE_ENV === 'development' ? false : true,
