@@ -29,7 +29,7 @@ const Tables = () => {
     <div className="tables">
       <h1 className="tables__title">Choose table</h1>
       {sortedTables.map((table: Table) => {
-        if (table.id === 2 || table.id === 7) {
+        if (table.tableNumber === 2 || table.tableNumber === 7) {
           return (
             <Table
               type="long"
@@ -39,7 +39,7 @@ const Tables = () => {
               status={table.status}
               orders={table.orders}
               style={
-                table.id === 2
+                table.tableNumber === 2
                   ? { gridRow: "2 / 5", gridColumn: "2 / 3" }
                   : { gridRow: "5 / 8", gridColumn: "2 / 3" }
               }
