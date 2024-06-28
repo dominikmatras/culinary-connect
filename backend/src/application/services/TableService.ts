@@ -5,7 +5,7 @@ import type { ITableService } from '../../core/domain/services/ITableService'
 export class TableService implements ITableService {
 	constructor(private tableRepository: ITableRepository) {}
 
-	async findById(id: number): Promise<Table | null> {
+	async findById(id: string): Promise<Table | null> {
 		return this.tableRepository.findById(id)
 	}
 
@@ -17,11 +17,11 @@ export class TableService implements ITableService {
 		return this.tableRepository.add(table)
 	}
 
-	async update(id: number, table: Table): Promise<Table | null> {
+	async update(id: string, table: Table): Promise<Table | null> {
 		return this.tableRepository.update(id, table)
 	}
 
-	async delete(id: number): Promise<Table | null> {
+	async delete(id: string): Promise<Table | null> {
 		return this.tableRepository.delete(id)
 	}
 }

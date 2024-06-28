@@ -13,15 +13,15 @@ export class MealService implements IMealService {
 		return this.mealRepository.findAll()
 	}
 
-	async findById(id: number): Promise<Meal | null> {
+	async findById(id: string): Promise<Meal | null> {
 		return this.mealRepository.findById(id)
 	}
 
-	async update(id: number, mealData: Meal): Promise<Meal | null> {
+	async update(id: string, mealData: Meal): Promise<Meal | null> {
 		return this.mealRepository.update(id, mealData)
 	}
 
-	async delete(id: number): Promise<Meal | null> {
+	async delete(id: string): Promise<Meal | null> {
 		return this.mealRepository.delete(id)
 	}
 }
