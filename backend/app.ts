@@ -29,16 +29,10 @@ app.use(cookieParser())
 // 		credentials: true,
 // 	})
 // )
+app.use(cors())
 
-// app.options(
-// 	'*',
-// 	cors({
-// 		origin: 'https://culinary-connect.netlify.app/',
-// 		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-// 		allowedHeaders: 'Content-Type,Authorization',
-// 		credentials: true,
-// 	})
-// )
+
+app.options('*',cors())
 
 app.use('/api/v1/meals', mealRouter)
 app.use('/api/v1/users', userRouter)
