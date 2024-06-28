@@ -31,7 +31,7 @@ app.use(
 )
 
 app.options(
-	'*',
+	'https://culinary-connect.netlify.app',
 	cors({
 		origin: 'https://culinary-connect.netlify.app/',
 		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
