@@ -46,7 +46,7 @@ And you can run backend aplication
 dominik@culinary-connect:~$ bun start
 ```
 
-Now you need to repeat the same thing in the folder `/fronend`
+Now you need to repeat the same thing in the folder `/fronend`:
 
 ```console
 dominik@culinary-connect:~$ cd ../frontend
