@@ -11,10 +11,11 @@ describe('TableController Integration Tests', () => {
 	let token: string
 	const userId = new mongoose.Types.ObjectId().toString()
 
+	const databaseConnection =
+		process.env.DATABASE?.replace('<PASSWORD>', process.env.DATABASE_PASSWORD ?? '') ?? ''
+
 	beforeAll(async () => {
-		await mongoose.connect(
-			`mongodb+srv://Dominik:${process.env.DATABASE_PASSWORD}@cluster0.r17yfyz.mongodb.net/culinary-connect`
-		)
+		await mongoose.connect(`${databaseConnection}`)
 
 		const user = new UserModel({
 			id: userId,

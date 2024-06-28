@@ -59,3 +59,9 @@ dominik@culinary-connect:~$ bun i
 ```console
 dominik@culinary-connect:~$ bun start
 ```
+
+## Run tests
+
+```console
+dominik@culinary-connect:~$ bun test
+```
