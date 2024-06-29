@@ -50,12 +50,12 @@ export const createOrder = async (orderData: {
     meal: number;
     quantity: number;
   }[];
-  tableId: number;
+  tableNumber: number;
 }) => {
   try {
     const body = {
       meals: orderData.meals,
-      tableId: orderData.tableId,
+      tableNumber: orderData.tableNumber,
     };
 
     const res = await fetch(`${HOST}${API_VERSION}/orders`, {

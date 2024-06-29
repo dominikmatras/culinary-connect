@@ -9,7 +9,7 @@ export type Order = {
   id: string;
   meals: { meal: number; quantity: number; _id: string; mealName: string }[];
   status: string;
-  tableId: number;
+  tableNumber: number;
   createdAt: string;
 };
 

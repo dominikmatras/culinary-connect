@@ -72,7 +72,7 @@ describe('OrderController', () => {
 		it('Should create a new order', async () => {
 			const req = {
 				body: {
-					tableId: 'Table 1',
+					tableNumber: 1,
 					meals: [],
 					status: 'pending',
 					createAt: new Date(),

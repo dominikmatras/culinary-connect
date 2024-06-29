@@ -5,7 +5,7 @@ export class OrderMapper {
 	static toDomainEntity(orderModel: any): Order {
 		return new Order(
 			orderModel.id,
-			orderModel.tableId,
+			orderModel.tableNumber,
 			orderModel.meals,
 			orderModel.status,
 			orderModel.createdAt
@@ -15,7 +15,7 @@ export class OrderMapper {
 	static toMongoOrder(order: Order) {
 		return new OrderModel({
 			id: order.id,
-			tableId: order.tableId,
+			tableNumber: order.tableNumber,
 			meals: order.meals,
 			status: order.status,
 			createdAt: order.createdAt,

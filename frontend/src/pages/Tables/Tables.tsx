@@ -9,7 +9,7 @@ export type Table = {
   tableNumber: number;
   orders?: {
     id: string;
-    tableId: number;
+    tableNumber: number;
     meals: { meal: number; quantity: number }[];
     status: string;
     createdAt: Date;

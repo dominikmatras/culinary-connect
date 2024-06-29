@@ -27,8 +27,8 @@ const tableSchema = new mongoose.Schema(
 
 tableSchema.virtual('orders', {
 	ref: 'Order',
-	foreignField: 'tableId',
-	localField: 'id',
+	foreignField: 'tableNumber',
+	localField: 'tableNumber',
 })
 
 tableSchema.pre(/^find/, function (this: any, next: any) {

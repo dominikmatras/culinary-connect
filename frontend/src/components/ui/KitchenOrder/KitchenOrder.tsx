@@ -28,7 +28,7 @@ const KitchenOrder = ({ order }: KitchenOrderProps) => {
               : "var(--color-yellow-600)",
         }}
       >
-        <p>Table {order.tableId}</p>
+        <p>Table {order.tableNumber}</p>
         <p>{time}</p>
       </div>
       <ul className="kitchen-order__list">

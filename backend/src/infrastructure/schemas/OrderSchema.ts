@@ -6,8 +6,8 @@ const orderSchema = new mongoose.Schema({
 		required: true,
 		unique: true,
 	},
-	tableId: {
-		type: String,
+	tableNumber: {
+		type: Number,
 		ref: 'Table',
 		required: [true, 'Order must have a table'],
 	},

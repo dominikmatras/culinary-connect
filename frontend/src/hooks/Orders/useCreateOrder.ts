@@ -9,7 +9,7 @@ export const useCreateOrder = () => {
         meal: number;
         quantity: number;
       }[];
-      tableId: number;
+      tableNumber: number;
     }) => createOrderAPI(orderData),
     onSuccess: () => {
       toast.success("Order created!");

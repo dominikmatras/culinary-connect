@@ -24,7 +24,7 @@ const OrderBarFooter = ({ closeBar, createOrder, isLoading }: OrderBarFooterProp
   }));
 
   const placeOrderHandler = () => {
-    createOrder({ meals: finalMealsToOrder, tableId: table.id });
+    createOrder({ meals: finalMealsToOrder, tableNumber: table.tableNumber });
   };
 
   return (

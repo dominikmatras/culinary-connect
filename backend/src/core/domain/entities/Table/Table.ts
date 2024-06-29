@@ -5,7 +5,7 @@ export class Table {
 		public readonly status: string,
 		public readonly orders?: {
 			id: string
-			tableId: number
+			tableNumber: number
 			meals: { meal: number; quantity: number }[]
 			status: string
 			createdAt: Date
