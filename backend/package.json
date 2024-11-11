@@ -6,7 +6,8 @@
 		"start": "bun --watch server.ts",
 		"start:prod": "NODE_ENV=production bun --watch server.ts",
 		"test": "mocha -r ts-node/register tests/*/.test.ts",
-		"build": "tsc"
+		"build": "tsc",
+		"postinstall": "npm install"
 	},
 	"devDependencies": {
 		"@types/bun": "latest",
