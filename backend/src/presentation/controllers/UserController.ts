@@ -34,6 +34,7 @@ export class UserController {
 			expires: new Date(Date.now() + expiresIn * 24 * 60 * 60 * 1000),
 			httpOnly: true,
 			secure: process.env.NODE_ENV === 'development' ? false : true,
+			sameSite: "none"
 		}
 		res.cookie('jwt', token, cookieOptions)
 
@@ -230,6 +231,8 @@ export class UserController {
 	async getUser(req: Request & { user?: User }, res: Response, next: NextFunction) {
 		try {
 			const user = req.user
+			console.log(user, "XDD");
+			
 
 			if (!user) {
 				return next(new AppError('User cannot be found!', 404))

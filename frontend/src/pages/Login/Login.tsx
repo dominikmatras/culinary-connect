@@ -6,7 +6,7 @@ import AuthFormHeader from "../../components/ui/AuthFormHeader/AuthFormHeader";
 import './AuthStyles.less'
 const Login = () => {
   const [email, setEmail] = useState("karol@onet.pl");
-  const [password, setPassword] = useState("12345678!");
+  const [password, setPassword] = useState("12345678");
   const { login, isLoading } = useLogin();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
