@@ -231,8 +231,6 @@ export class UserController {
 	async getUser(req: Request & { user?: User }, res: Response, next: NextFunction) {
 		try {
 			const user = req.user
-			console.log(user, "XDD");
-			
 
 			if (!user) {
 				return next(new AppError('User cannot be found!', 404))
