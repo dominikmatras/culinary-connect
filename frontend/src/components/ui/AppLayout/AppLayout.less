@@ -3,10 +3,23 @@
   display: grid;
   grid-template-columns: 22rem 1fr;
   grid-template-areas: "sidebar main";
+
+  @media (max-width: 992px) {
+    grid-template-columns: 7rem 1fr;
+  }
+
+  @media (max-width: 570px) {
+    display: flex;
+  }
+
   &__main {
     background-color: var(--color-grey-100);
     overflow: auto;
     display: flex;
+    grid-column: 2 / 3;
+    @media (max-width: 570px) {
+      width: 100%;
+    }
     &__container {
       position: relative;
       height: 100%;

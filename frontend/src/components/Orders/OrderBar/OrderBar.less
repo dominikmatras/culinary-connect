@@ -3,9 +3,12 @@
   height: 100vh;
   background-color: var(--color-grey-0);
   width: 30rem;
-  min-width: 24rem;
+  min-width: 30rem;
   display: flex;
   flex-direction: column;
+  @media (max-width: 768px) {
+    width: 24rem;
+  }
 
   &__header {
     padding: 2rem 1.8rem;
@@ -31,6 +34,9 @@
       width: 80%;
       text-align: center;
       color: var(--color-grey-500);
+      @media (max-width: 768px) {
+        font-size: 1.4rem;
+      }
     }
 
     &__occupied {
@@ -87,6 +93,10 @@
     background-color: var(--color-grey-100);
     border-radius: var(--border-radius-lg);
 
+    @media (max-width: 768px) {
+      padding: 1rem;
+    }
+
     &__subtotal,
     &__tax,
     &__total {
@@ -112,6 +122,9 @@
     &__total {
       font-size: 1.5rem;
       font-weight: 600;
+      @media (max-width: 768px) {
+        font-size: 1.4rem;
+      }
     }
   }
 

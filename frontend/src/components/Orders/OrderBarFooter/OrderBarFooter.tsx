@@ -50,7 +50,7 @@ const OrderBarFooter = ({ closeBar, createOrder, isLoading }: OrderBarFooterProp
           disabled={mealsToOrder?.length <= 0 || isLoading}
           onClick={placeOrderHandler}
         >
-          Place Order
+        Order
         </button>
         <button
           className="order-bar__buttons__button"

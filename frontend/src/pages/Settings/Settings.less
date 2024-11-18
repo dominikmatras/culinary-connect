@@ -1,9 +1,16 @@
 .settings {
   margin: 2rem 4rem;
 
+  @media (max-width: 768px) {
+    margin: 2rem 2rem;
+
+  }
   &__title {
     font-weight: 600;
     margin-bottom: 2.8rem;
+    @media (max-width: 768px) {
+      font-size: 2.6rem;
+    }
   }
 
   &__container {
@@ -15,10 +22,17 @@
     }
     &__form {
       min-width: 50rem;
-      width: 60%;
+      max-width: 60%;
       padding: 2rem;
       background-color: var(--color-grey-0);
       border-radius: var(--border-radius-lg);
+
+      @media (max-width: 830px) {
+        min-width: 40rem;
+
+      }
+
+    
 
       &__btn {
         width: auto;
@@ -35,6 +49,11 @@
 
         &:hover {
           background-color: var(--color-brand-600);
+        }
+
+        @media (max-width: 570px) {
+          font-size: 1.4rem;
+
         }
       }
     }
