@@ -1,35 +1,38 @@
-import toast from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
-import { FcInfo } from 'react-icons/fc'
-import { useOrderContext } from '../../../context/OrderContext'
-import { Meal } from '../MealsList/MealsList'
-import './MealItem.less'
+import { FC } from "react";
+import { Meal } from "../MealsList/MealsList";
+import "./MealItem.less";
 
-const MealItem = ({ id, name, price, photoPath }: Meal) => {
-	const navigate = useNavigate()
-	const { dispatch, startOrder } = useOrderContext()
+export type MealItemProps = Meal & {
+  addMealToOrderHandler: (
+    id: number,
+    name: string,
+    price: number,
+    photoPath: string
+  ) => void;
+};
 
-	const addMealToOrderHandler = () => {
-		if (!startOrder) {
-			toast('You have to choose a table first!', { icon: <FcInfo /> })
-			navigate('/tables')
-			return
-		}
-		dispatch({ type: 'ADD_MEAL_TO_ORDER', payload: { id, name, price, photoPath, quantity: 1 } })
-	}
+const MealItem: FC<MealItemProps> = ({
+  id,
+  name,
+  price,
+  photoPath,
+  addMealToOrderHandler,
+}) => {
+  return (
+    <div className="meal-item">
+      <img src={photoPath} alt={name} className="meal-item__img" />
+      <h5 className="meal-item__title">{name}</h5>
+      <p className="meal-item__price">
+        <span>${price}</span>
+      </p>
+      <button
+        className="meal-item__btn"
+        onClick={() => addMealToOrderHandler(id, name, price, photoPath)}
+      >
+        Add dish
+      </button>
+    </div>
+  );
+};
 
-	return (
-		<div className="meal-item">
-			<img src={photoPath} alt={name} className="meal-item__img" />
-			<h5 className="meal-item__title">{name}</h5>
-			<p className="meal-item__price">
-				<span>${price}</span>
-			</p>
-			<button className="meal-item__btn" onClick={addMealToOrderHandler}>
-				Add dish
-			</button>
-		</div>
-	)
-}
-
-export default MealItem
+export default MealItem;

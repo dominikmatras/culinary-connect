@@ -10,6 +10,7 @@
 
   @media (max-width: 570px) {
     display: flex;
+    flex-direction: column;
   }
 
   &__main {
@@ -19,6 +20,7 @@
     grid-column: 2 / 3;
     @media (max-width: 570px) {
       width: 100%;
+      flex-grow: 1;
     }
     &__container {
       position: relative;

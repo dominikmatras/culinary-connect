@@ -5,17 +5,23 @@ import { useUser } from "../../../hooks/User/useUser";
 import { navItems } from "../Navbar/navItems";
 import Spinner from "../Spinner/Spinner";
 import "./MobileNavbar.less";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { TbLayoutSidebarLeftCollapse, TbLayoutSidebarLeftExpand } from "react-icons/tb";
 
-const MobileNavbar = () => {
+type MobileNavbarProps = {
+  isNavbarOpen: boolean;
+  setIsNavbarOpen: (isOpen: boolean) => void;
+};
+
+const MobileNavbar: FC<MobileNavbarProps> = ({ isNavbarOpen, setIsNavbarOpen }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { user, isLoading: isUserLoading } = useUser();
   const { logout, isLoading } = useLogout();
 
   const closeSidebar = () => {
     setIsOpen(false);
-  }
+    setIsNavbarOpen(false);
+  };
 
   return (
     <>
@@ -43,25 +49,27 @@ const MobileNavbar = () => {
           </ul>
         </nav>
         <div className="mobile-navbar__footer">
-              <Link to={"/settings"}>
-                <div className="mobile-navbar__footer__user-info">
-                  <span className="mobile-navbar__footer__user-info__letter">
-                    {user.name.split("")[0]}
-                  </span>
-    
-                </div>
-              </Link>
-              <button
-                onClick={() => logout()}
-                disabled={isLoading}
-                className="mobile-navbar__footer__logout-btn"
-              >
-                <MdLogout />
-              </button>
+          <Link to={"/settings"}>
+            <div className="mobile-navbar__footer__user-info">
+              <span className="mobile-navbar__footer__user-info__letter">
+                {user.name.split("")[0]}
+              </span>
             </div>
+          </Link>
+          <button
+            onClick={() => logout()}
+            disabled={isLoading}
+            className="mobile-navbar__footer__logout-btn"
+          >
+            <MdLogout />
+          </button>
+        </div>
       </aside>
 
-      <aside className="mobile-navbar" style={isOpen ? { left: "0" } : {}}>
+      <aside
+        className="mobile-navbar"
+        style={isOpen || isNavbarOpen ? { left: "0" } : {}}
+      >
         {!isUserLoading ? (
           <>
             <div>
