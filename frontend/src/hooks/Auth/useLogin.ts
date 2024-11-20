@@ -13,7 +13,11 @@ export const useLogin = () => {
       } else {
         navigate("/tables");
       }
+      toast.remove();
       toast.success("Logged in successfully!");
+    },
+    onMutate: () => {
+      toast.loading("Logging in...")
     },
     onError: (err) => {
       toast.error(err.message ?? "Failed to login!");

@@ -33,7 +33,7 @@ export class UserController {
 		const cookieOptions: CookieOptions = {
 			expires: new Date(Date.now() + expiresIn * 24 * 60 * 60 * 1000),
 			httpOnly: true,
-			secure: process.env.NODE_ENV === 'development' ? false : true,
+			secure: true,
 			sameSite: "none"
 		}
 		res.cookie('jwt', token, cookieOptions)

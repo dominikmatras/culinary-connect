@@ -1,4 +1,5 @@
 .auth-container {
+  position: relative;
   display: grid;
   justify-content: center;
   grid-template-columns: 1fr 55%;
@@ -6,15 +7,62 @@
   max-width: 144rem;
   margin: 0 auto;
   background-color: var(--color-grey-100);
+  z-index: 1;
+
+  @media (max-width: 1070px) {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    max-width: 100%;
+    width: 100%;
+    background-image: url("./restaurantLogin.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    &::after {
+      content: "";
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      background: rgb(36, 20, 0);
+      background: linear-gradient(
+        90deg,
+        rgba(36, 20, 0, 0.2824317226890757) 100%,
+        rgba(60, 54, 44, 0.2432160364145658) 100%,
+        rgba(0, 212, 255, 1) 100%
+      );
+      z-index: -1;
+    }
+  }
 
   &__auth {
-    padding: 9rem 4rem 2rem 11rem;
+    padding: 9rem 8rem 2rem 11rem;
+
+    
+
+    @media (max-width: 1070px) {
+      max-width: 48rem;
+      padding: 4rem 6rem;
+      margin: 4rem;
+      background-color: var(--color-grey-100);
+      border-radius: var(--border-radius-lg);
+    }
+
+    @media (max-width: 570px) {
+      padding: 3rem 4rem !important;
+
+
+    }
 
     &__inner {
       max-width: 35rem;
       &__title {
         font-weight: 600;
         margin-bottom: 2rem;
+
+        @media (max-width: 570px) {
+          display: none;
+        }
       }
 
       &__form {
@@ -49,10 +97,10 @@
 
             &__role {
               display: flex;
-              gap: .8rem;
-              label,input {
+              gap: 0.8rem;
+              label,
+              input {
                 cursor: pointer;
-                
               }
               input:focus {
                 outline: none;
@@ -81,6 +129,10 @@
 
         &__btn--forgot {
           text-align: end;
+          @media (max-width: 570px) {
+            font-size: 1.2rem;
+
+          }
           a {
             font-size: 1.3rem;
             border: none;
@@ -98,6 +150,11 @@
           margin-top: 2rem;
           font-size: 1.4rem;
           color: var(--color-grey-400);
+
+          @media (max-width: 570px) {
+            font-size: 1.2rem;
+
+          }
 
           a {
             color: var(--color-grey-800);
@@ -120,6 +177,10 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+
+    @media (max-width: 1070px) {
+      display: none;
+    }
 
     &::after {
       content: "";
