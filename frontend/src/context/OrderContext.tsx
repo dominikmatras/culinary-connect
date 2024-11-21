@@ -19,6 +19,8 @@ const reducer = (state: any, action: any) => {
   switch (action.type) {
     case "SHOW_ORDER_BAR":
       return { ...state, showOrderBar: action.payload };
+    case "HIDE_ORDER_BAR":
+      return { ...state, showOrderBar: action.payload };
     case "SET_TABLE":
       return { ...state, table: action.payload };
     case "START_ORDER":

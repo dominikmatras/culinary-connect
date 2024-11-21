@@ -25,9 +25,6 @@ const OrderItem = ({
       <div className="order-item__title-container">
         <h5 className="order-item__title-container__title">{name}</h5>
         <div className="order-item__title-container__inner">
-          <p className="order-item__title-container__qty">
-            <span>{quantity}x</span>
-          </p>
           <div>
             <button
               className="order-item__title-container__qty__button"
@@ -35,6 +32,9 @@ const OrderItem = ({
             >
               -
             </button>
+          <p className="order-item__title-container__qty">
+            <span>{quantity}x</span>
+          </p>
             <button
               className="order-item__title-container__qty__button"
               onClick={addMealToOrder}

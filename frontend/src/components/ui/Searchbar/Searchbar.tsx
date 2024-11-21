@@ -1,4 +1,6 @@
 import { IoSearchSharp } from "react-icons/io5";
+import { useOrderContext } from "../../../context/OrderContext";
+import { useIsMobileView } from "../../../hooks/useIsMobileView";
 import "./Searchbar.less";
 
 type SearchbarProps = {
@@ -7,12 +9,16 @@ type SearchbarProps = {
 };
 
 const Searchbar = ({ onChange, value }: SearchbarProps) => {
+  const { mealsToOrder } = useOrderContext();
+  const isMobileView = useIsMobileView();
+
+  const cartItems = mealsToOrder.reduce((acc, currVal) => acc + currVal.quantity, 0);
   const changeInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   };
 
   return (
-    <div className="searchbar">
+    <div className={`searchbar ${cartItems > 0 && !isMobileView ?  "searchbar-lower" : ""}`}>
       <input
         value={value}
         onChange={changeInputHandler}

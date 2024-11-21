@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FcInfo } from "react-icons/fc";
 import { PAGE_SIZE } from "../../../utils/constants";
@@ -9,6 +9,8 @@ import Pagination from "../../ui/Pagination/Pagination";
 import MealItem from "../MealItem/MealItem";
 import Spinner from "../../ui/Spinner/Spinner";
 import MealItemMobile from "../MealItemMobile/MealItemMobile";
+import Cart from "../../Cart/Cart";
+import { useIsMobileView } from "../../../hooks/useIsMobileView";
 import "./MealsList.less";
 
 type MealsListProps = {
@@ -25,21 +27,9 @@ export type Meal = {
 const MealsList = ({ searchedValue }: MealsListProps) => {
   const [page, setPage] = useState(1);
   const { meals, isLoading } = useMeals();
-  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 570);
   const navigate = useNavigate();
   const { dispatch, startOrder } = useOrderContext();
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobileView(window.innerWidth <= 570);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const isMobileView = useIsMobileView(570);
 
   if (isLoading || !meals) return <Spinner />;
 
@@ -68,6 +58,7 @@ const MealsList = ({ searchedValue }: MealsListProps) => {
 
   return (
     <>
+      <Cart />
       <div className="meals-list">
         <ul className="meals-list__list">
           {filteredMeals.map((meal: Meal) => {

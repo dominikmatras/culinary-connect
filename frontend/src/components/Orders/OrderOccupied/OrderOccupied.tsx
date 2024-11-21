@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useOrderContext } from "../../../context/OrderContext";
 import { useUpdateTable } from "../../../hooks/Tables/useUpdateTable";
+import { useIsMobileView } from "../../../hooks/useIsMobileView";
 
 type OrderOccupiedProps = {
   closeBar: () => void;
@@ -9,6 +10,7 @@ type OrderOccupiedProps = {
 const OrderOccupied = ({ closeBar }: OrderOccupiedProps) => {
   const { table, dispatch } = useOrderContext();
   const { updateTable } = useUpdateTable();
+  const isMobileView = useIsMobileView();
 
   const makeTableAvailable = () => {
     updateTable({ id: table.id, status: "available" });
@@ -16,6 +18,10 @@ const OrderOccupied = ({ closeBar }: OrderOccupiedProps) => {
   };
 
   const startOrder = () => {
+    if(isMobileView) {
+      dispatch({ type: "HIDE_ORDER_BAR", payload: false });
+
+    }
     dispatch({ type: "START_ORDER", payload: true });
   };
 

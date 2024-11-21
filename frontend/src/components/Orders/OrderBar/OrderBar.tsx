@@ -8,14 +8,20 @@ import { useCreateOrder } from "../../../hooks/Orders/useCreateOrder";
 import Spinner from "../../ui/Spinner/Spinner";
 import { useUpdateTable } from "../../../hooks/Tables/useUpdateTable";
 import "./OrderBar.less";
+import { useLocation } from "react-router-dom";
+import { IoCloseOutline } from "react-icons/io5";
 
 const OrderBar = () => {
   const { showOrderBar, table, startOrder, mealsToOrder, dispatch } = useOrderContext();
   const { isLoading, createOrder, isSuccess } = useCreateOrder();
   const { updateTable } = useUpdateTable();
+  const path = useLocation().pathname;
 
-  const closeOrderBar = () => {
+  const cancelOrder = () => {
     dispatch({ type: "CLEAR_ORDER" });
+  };
+  const closeOrderBar = () => {
+    dispatch({ type: "HIDE_ORDER_BAR", payload: false });
   };
 
   useEffect(() => {
@@ -33,15 +39,16 @@ const OrderBar = () => {
 
   return (
     showOrderBar && (
-      <aside className="order-bar" style={isLoading ? { opacity: ".5" } : {}}>
+      <aside className={`order-bar ${path === "/tables" ? "order-bar-tables" : ""}`} style={isLoading ? { opacity: ".5" } : {}}>
         {isLoading && <Spinner />}
         <div className="order-bar__header">
           <h3 className="order-bar__header__title">Table {table.tableNumber}</h3>
+          <IoCloseOutline className="order-bar__header__icon" onClick={closeOrderBar} />
         </div>
 
         <div className="order-bar__content">
           {!startOrder ? (
-            <OrderOccupied closeBar={closeOrderBar} />
+            <OrderOccupied closeBar={cancelOrder} />
           ) : mealsToOrder.length ? (
             <ul className="order-bar__content__list">
               {mealsToOrder.map((meal: Meal & { quantity: number }) => (
@@ -63,7 +70,7 @@ const OrderBar = () => {
         </div>
         {startOrder && table.status === "available" && (
           <OrderBarFooter
-            closeBar={closeOrderBar}
+            closeBar={cancelOrder}
             createOrder={createOrder}
             isLoading={isLoading}
           />
