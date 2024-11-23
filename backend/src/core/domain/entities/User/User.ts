@@ -7,5 +7,6 @@ export class User {
 		public readonly role: UserRole,
 		public readonly password: string,
 		public readonly passwordConfirm: string,
+		public readonly profilePicture?: string
 	) {}
 }

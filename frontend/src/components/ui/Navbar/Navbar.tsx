@@ -38,9 +38,14 @@ const Navbar = () => {
           <div className="navbar__footer">
             <Link to={"/settings"}>
               <div className="navbar__footer__user-info">
-                <span className="navbar__footer__user-info__letter">
-                  {user.name.split("")[0]}
-                </span>
+                <span
+                  className="navbar__footer__user-info__letter"
+                  style={{
+                    backgroundImage: `url(${
+                      user.profilePicture ? user.profilePicture : "./profileEmpty.jpg"
+                    })`,
+                  }}
+                />
                 <span className="navbar__footer__user-info__name">{user.name}</span>
               </div>
             </Link>

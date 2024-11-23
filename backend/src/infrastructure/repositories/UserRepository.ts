@@ -87,11 +87,12 @@ export class UserRepository implements IUserRepository {
 
   async updateMe(
     id: string,
-    reqBody: { email: string; name: string }
+    reqBody: { email: string; name: string, profilePicture: string | undefined }
   ): Promise<User | null> {
     const body = {
       email: reqBody.email,
       name: reqBody.name,
+      profilePicture: reqBody.profilePicture
     }
 
     const user = await UserModel.findOneAndUpdate({ id }, body, {

@@ -98,15 +98,12 @@ export const getUser = async () => {
   }
 };
 
-export const updateMe = async (data: { email: string; name: string }) => {
+export const updateMe = async (data: FormData) => {
   try {
     const res = await fetch(`${HOST}${API_VERSION}/users/updateMe`, {
       method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
       credentials: "include",
-      body: JSON.stringify(data),
+      body: data,
     });
 
     if (!res.ok) {

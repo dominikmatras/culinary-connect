@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useUpdateMe } from "../../hooks/User/useUpdateMe";
 import FormRow from "../ui/FormRow/FormRow";
-import "../../pages/Settings/Settings.less";
 import toast from "react-hot-toast";
+import ProfilePictureInput from "../ui/ProfilePictureInput/ProfilePictureInput";
+import "../../pages/Settings/Settings.less";
 
 type UpdateUserFormProps = {
   user: {
@@ -18,10 +19,15 @@ const UpdateUserForm = ({ user }: UpdateUserFormProps) => {
   const { updateMe, isLoading } = useUpdateMe();
   const [emailValue, setEmailValue] = useState(email);
   const [nameValue, setNameValue] = useState(name);
+  const [file, setFile] = useState<File | null>(null);
+
+  const handleFileChange = (newFile: File | null) => {
+    setFile(newFile);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (emailValue === email && nameValue === name) {
+    if (emailValue === email && nameValue === name && !file) {
       toast.error("No changes were made");
       return;
     }
@@ -29,7 +35,19 @@ const UpdateUserForm = ({ user }: UpdateUserFormProps) => {
       toast.error("Email and name are required");
       return;
     }
-    updateMe({ email: emailValue, name: nameValue });
+    try {
+      const formData = new FormData();
+      formData.append("email", emailValue);
+      formData.append("name", nameValue);
+
+      if (file) {
+        formData.append("profilePicture", file);
+      }
+
+      updateMe(formData);
+    } catch (error) {
+      toast.error("Error updating user");
+    }
   };
 
   return (
@@ -56,9 +74,9 @@ const UpdateUserForm = ({ user }: UpdateUserFormProps) => {
             onChange={(e) => setNameValue(e.target.value)}
           />
         </FormRow>
-        {/* <FormRow label='Email address'>
-        <input className='input-secondary' type='email' id='email' />
-      </FormRow> ??? AVATAR ???? */}
+        <FormRow label="Profile picture">
+          <ProfilePictureInput disabled={isLoading} onFileChange={handleFileChange} />
+        </FormRow>
         <FormRow>
           <button
             disabled={isLoading}

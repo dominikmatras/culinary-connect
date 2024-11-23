@@ -7,6 +7,7 @@ interface UserDocument extends Document {
   id: string;
   name: string;
   email: string;
+  profilePicture: string | undefined;
   role: "cooker" | "waiter" | "manager";
   password: string;
   passwordConfirm: string;
@@ -55,6 +56,10 @@ const userSchema = new mongoose.Schema({
       },
       message: "Passwords must be the same",
     },
+  },
+  profilePicture: {
+    type: String,
+    required: false,
   },
   passwordChangedAt: Date,
   passwordResetToken: String,

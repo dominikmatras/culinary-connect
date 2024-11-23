@@ -11,6 +11,7 @@ export class UserMapper {
       userModel.role,
       userModel.password,
       userModel.passwordConfirm,
+      userModel.profilePicture
     );
   }
 
@@ -21,6 +22,7 @@ export class UserMapper {
       role: user.role,
       password: user.password,
       passwordConfirm: user.passwordConfirm,
+      profilePicture: user.profilePicture
     });
   }
 }

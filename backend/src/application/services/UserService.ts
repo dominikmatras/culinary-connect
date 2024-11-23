@@ -37,7 +37,7 @@ export class UserService implements IUserService {
 		return this.userRepository.updatePassword(id, reqBody)
 	}
 
-	async updateMe(id: string, reqBody: { email: string; name: string }): Promise<User | null> {
+	async updateMe(id: string, reqBody: { email: string; name: string, profilePicture: string | undefined }): Promise<User | null> {
 		return this.userRepository.updateMe(id, reqBody)
 	}
 

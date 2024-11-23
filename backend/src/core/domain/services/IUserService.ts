@@ -11,7 +11,7 @@ export interface IUserService {
     id: string,
     reqBody: { password: string; newPassword: string; passwordConfirm: string }
   ): Promise<User | null>;
-  updateMe(id: string, reqBody: { email: string, name: string }): Promise<User | null>;
+  updateMe(id: string, reqBody: { email: string, name: string, profilePicture: string | undefined }): Promise<User | null>;
   protect(
     id: string,
     issuedAt: number

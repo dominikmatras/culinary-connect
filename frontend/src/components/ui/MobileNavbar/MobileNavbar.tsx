@@ -51,9 +51,14 @@ const MobileNavbar: FC<MobileNavbarProps> = ({ isNavbarOpen, setIsNavbarOpen }) 
         <div className="mobile-navbar__footer">
           <Link to={"/settings"}>
             <div className="mobile-navbar__footer__user-info">
-              <span className="mobile-navbar__footer__user-info__letter">
-                {user.name.split("")[0]}
-              </span>
+              <span
+                className="mobile-navbar__footer__user-info__letter"
+                style={{
+                  backgroundImage: `url(${
+                    user.profilePicture ? user.profilePicture : "./profileEmpty.jpg"
+                  })`,
+                }}
+              />
             </div>
           </Link>
           <button
@@ -103,9 +108,14 @@ const MobileNavbar: FC<MobileNavbarProps> = ({ isNavbarOpen, setIsNavbarOpen }) 
             <div className="mobile-navbar__footer">
               <Link to={"/settings"} onClick={closeSidebar}>
                 <div className="mobile-navbar__footer__user-info">
-                  <span className="mobile-navbar__footer__user-info__letter">
-                    {user.name.split("")[0]}
-                  </span>
+                  <span
+                    className="mobile-navbar__footer__user-info__letter"
+                    style={{
+                      backgroundImage: `url(${
+                        user.profilePicture ? user.profilePicture : "./profileEmpty.jpg"
+                      })`,
+                    }}
+                  />
                   <span className="mobile-navbar__footer__user-info__name">
                     {user.name}
                   </span>

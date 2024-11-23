@@ -1,5 +1,6 @@
 import express from "express";
 import { userController } from "../controllers/UserController";
+import { upload } from "../middleware/fileUpload";
 
 const router = express.Router();
 
@@ -16,6 +17,8 @@ router.patch(
 router.patch(
   "/updateMe",
   userController.protect.bind(userController),
+  upload.single('profilePicture'),
+  userController.resizeUserProfilePicture.bind(userController),
   userController.updateMe.bind(userController)
 );
 router.get(
