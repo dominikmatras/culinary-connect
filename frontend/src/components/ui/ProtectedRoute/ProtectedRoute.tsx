@@ -14,7 +14,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 
   useEffect(() => {
     if (
-      (location.pathname === "/orders" && user?.role !== "cooker") ||
+      (user && location.pathname === "/orders" && user?.role !== "cooker") ||
       (location.pathname === "/menu" && user?.role === "cooker") ||
       (location.pathname === "/tables" && user?.role === "cooker")
     ) {
@@ -22,11 +22,11 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     }
   }, [location.pathname, isLoading, user?.role]);
 
-  if (isLoading) return <Spinner />;
-
   if (!user) {
     navigate("/login", { replace: true });
   }
+
+  if (isLoading) return <Spinner />;
 
   return <div>{children}</div>;
 };

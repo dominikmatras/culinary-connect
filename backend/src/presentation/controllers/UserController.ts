@@ -91,9 +91,11 @@ export class UserController {
 
   async logout(req: Request, res: Response, next: NextFunction) {
     try {
-      const cookieOptions = {
+      const cookieOptions: CookieOptions = {
         expires: new Date(Date.now() + 10 * 1000),
         httpOnly: true,
+				secure: true,
+				sameSite: "none",
       };
 
       res.cookie("jwt", "", cookieOptions);

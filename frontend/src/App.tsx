@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import Login from "./pages/Login/Login";
 import Menu from "./pages/Menu/Menu";
@@ -13,11 +13,12 @@ import NotFound from "./pages/NotFound/NotFound";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import Signup from "./pages/Signup/Signup";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 60 * 1000,
+      staleTime: 0,
     },
   },
 });
@@ -25,10 +26,10 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-        <Toaster />
-        <OrderProvider>
+      <OrderProvider>
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={false} />
+          <Toaster />
           <BrowserRouter>
             <Routes>
               <Route
@@ -43,7 +44,7 @@ function App() {
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/orders" element={<Orders />} />
               </Route>
-              <Route index element={<Login />} />
+              <Route index element={<Navigate replace to='/login'/>} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/forgotPassword" element={<ForgotPassword />} />
@@ -51,8 +52,8 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
-        </OrderProvider>
-      </QueryClientProvider>
+        </QueryClientProvider>
+      </OrderProvider>
     </>
   );
 }

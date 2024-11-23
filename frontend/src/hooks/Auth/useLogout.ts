@@ -11,8 +11,8 @@ export const useLogout = () => {
     mutationFn: logoutAPI,
     onSuccess: () => {
       toast.success("Logged out successfully!");
-      navigate("/login", { replace: true });
       queryClient.removeQueries();
+      navigate("/login", { replace: true });
     },
     onError: (err) => {
       toast.error(err.message ?? "Failed to logout!");
