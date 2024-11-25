@@ -12,9 +12,9 @@ export const useLogin = () => {
     onSuccess: (user) => {
       queryClient.setQueryData(["user"], user.user);
       if (user.role === "cooker") {
-        navigate("/orders");
+        navigate("/orders", { replace: true });
       } else {
-        navigate("/tables");
+        navigate("/tables", { replace: true });
       }
       toast.remove();
       toast.success("Logged in successfully!");
@@ -24,6 +24,7 @@ export const useLogin = () => {
       toast.loading("Logging in...")
     },
     onError: (err) => {
+      toast.remove();
       toast.error(err.message ?? "Failed to login!");
       console.log(err);
     },

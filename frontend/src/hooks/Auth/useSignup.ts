@@ -19,9 +19,14 @@ export const useSignup = () => {
       } else {
         navigate("/menu");
       }
+      toast.remove();
       toast.success("Signup successfull!");
     },
+    onMutate: () => {
+      toast.loading("Creating account...")
+    },
     onError: (err) => {
+      toast.remove();
       toast.error(err.message ?? "Failed to signup!");
       console.log(err);
     },

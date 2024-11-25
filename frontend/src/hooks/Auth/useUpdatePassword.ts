@@ -10,9 +10,14 @@ export const useUpdatePassword = () => {
       passwordConfirm: string;
     }) => updatePasswordAPI(data),
     onSuccess: () => {
+      toast.remove();
       toast.success("Password updated successfully");
     },
+    onMutate: () => {
+      toast.loading("Updating...")
+    },
     onError: (error) => {
+      toast.remove();
       toast.error(error.message ?? "Failed to update password!");
       console.log(error);
     },
